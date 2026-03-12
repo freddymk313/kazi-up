@@ -22,10 +22,10 @@ const Hero = () => {
             Concevez votre CV en quelques minutes grâce à nos modèles optimisés pour le marché congolais. Décrochez l'emploi de vos rêves avec kaziUp.
           </p>
           <div className="flex flex-wrap gap-4 pt-2">
-            <Button variant="hero" size="lg">
+            <Button size="lg">
               Commencer gratuitement
             </Button>
-            <Button variant="hero-outline" size="lg">
+            <Button size="lg">
               Voir les modèles
             </Button>
           </div>
@@ -47,11 +47,11 @@ const Hero = () => {
           transition={{ duration: 0.7, delay: 0.2 }}
           className="flex justify-center"
         >
-          <img
+          {/* <img
             src={heroPhone}
             alt="KaziUp - Aperçu de l'application CV"
             className="w-72 md:w-80 lg:w-96 animate-float drop-shadow-2xl"
-          />
+          /> */}
         </motion.div>
       </div>
 

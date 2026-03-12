@@ -35,7 +35,7 @@ const Header = () => {
 
         <div className="hidden md:flex items-center gap-3">
           <Button variant="ghost" size="sm">Connexion</Button>
-          <Button variant="hero" size="default">Créer mon CV</Button>
+          <Button size="default">Créer mon CV</Button>
         </div>
 
         <button
@@ -68,7 +68,7 @@ const Header = () => {
               ))}
               <div className="flex gap-3 pt-2">
                 <Button variant="ghost" size="sm" className="flex-1">Connexion</Button>
-                <Button variant="hero" size="default" className="flex-1">Créer mon CV</Button>
+                <Button size="default" className="flex-1">Créer mon CV</Button>
               </div>
             </div>
           </motion.div>

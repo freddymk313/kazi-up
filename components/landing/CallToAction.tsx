@@ -18,7 +18,7 @@ const CallToAction = () => {
             Rejoignez des milliers de Congolais qui font confiance à kaziUp pour créer des CV professionnels et percutants.
           </p>
           <div className="flex flex-wrap justify-center gap-4 pt-4">
-            <Button variant="hero" size="lg">
+            <Button size="lg">
               Créer mon CV gratuitement
             </Button>
           </div>

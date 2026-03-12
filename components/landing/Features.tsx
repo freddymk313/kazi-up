@@ -53,11 +53,11 @@ const Features = () => {
             viewport={{ once: true }}
             className="flex justify-center"
           >
-            <img
+            {/* <img
               src={resumePreview}
               alt="Aperçu d'un modèle de CV kaziUp"
               className="w-72 md:w-96 drop-shadow-xl animate-float"
-            />
+            /> */}
           </motion.div>
         </div>
       </div>
