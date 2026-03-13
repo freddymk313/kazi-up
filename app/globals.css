@@ -6,52 +6,70 @@
 
 @theme inline {
   --font-sans: var(--font-sans);
+
   --color-primary: var(--primary);
   --color-primary-foreground: var(--primary-foreground);
+
   --color-secondary: var(--secondary);
   --color-secondary-foreground: var(--secondary-foreground);
+
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --color-card: var(--neutral-light);
-  --color-card-foreground: var(--neutral-dark);
+
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+
   --color-success: var(--success);
 }
 
 :root {
-  --primary: #1D4ED8;
+  --primary: #F97316;
   --primary-foreground: #FFFFFF;
-  --secondary: #F97316;
+
+  --secondary: #1D4ED8;
   --secondary-foreground: #FFFFFF;
-  --neutral-light: #F3F4F6;
-  --neutral-dark: #374151;
-  --success: #10B981;
+
   --background: #FFFFFF;
   --foreground: #374151;
+
+  --card: #F9FAFB;
+  --card-foreground: #374151;
+
+  --success: #10B981;
 }
 
 .dark {
-  --primary: #1D4ED8;
+  --primary: #F97316;
   --primary-foreground: #FFFFFF;
-  --secondary: #F97316;
+
+  --secondary: #3B82F6;
   --secondary-foreground: #FFFFFF;
-  --neutral-light: #374151;
-  --neutral-dark: #F3F4F6;
+
+  --background: #0F172A;
+  --foreground: #F9FAFB;
+
+  --card: #1E293B;
+  --card-foreground: #F1F5F9;
+
   --success: #10B981;
-  --background: #1A1A1A;
-  --foreground: #F3F4F6;
 }
 
 @layer base {
+
   html {
     @apply font-sans;
   }
+
   body {
     @apply bg-background text-foreground;
   }
+
   .btn-primary {
     @apply bg-primary text-primary-foreground;
-    &:hover {
-      filter: brightness(0.9);
-    }
   }
+
+  .btn-primary:hover {
+    filter: brightness(0.9);
+  }
+  
 }
