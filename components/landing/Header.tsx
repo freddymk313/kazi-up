@@ -63,15 +63,20 @@ const Header = () => {
 
         {/* Auth Actions */}
         <div className="hidden md:flex items-center gap-3">
-          <Button
-            variant="ghost"
-            className="text-[13px] font-medium px-4 hover:bg-transparent hover:text-primary transition-colors"
-          >
-            Connexion
-          </Button>
-          <Button className="rounded-full bg-primary text-primary-foreground hover:bg-primary/90 h-11 px-8 text-[13px] font-semibold shadow-lg shadow-primary/20 transition-all active:scale-95">
-            S'inscrire
-          </Button>
+          <Link href="/login">
+            <Button
+              variant="ghost"
+              className="text-[13px] font-medium px-4 hover:bg-transparent hover:text-primary transition-colors"
+            >
+              Connexion
+            </Button>
+          </Link>
+
+          <Link href="/register">
+            <Button className="rounded-full bg-primary text-primary-foreground hover:bg-primary/90 h-11 px-8 text-[13px] font-semibold shadow-lg shadow-primary/20 transition-all active:scale-95">
+              S'inscrire
+            </Button>
+          </Link>
         </div>
 
         {/* Mobile Toggle */}
@@ -105,9 +110,12 @@ const Header = () => {
               ))}
               <div className="h-[1px] bg-border/60 w-full" />
               <div className="flex flex-col gap-4">
-                <Button variant="ghost" className="w-full text-base py-6">
-                  Connexion
-                </Button>
+                <Link href="/login">
+                  <Button variant="ghost" className="w-full text-base py-6">
+                    Connexion
+                  </Button>
+                </Link>
+
                 <Link href="/register">
                   <Button className="w-full rounded-full bg-primary text-white h-14 text-base font-bold shadow-lg shadow-primary/20">
                     S'inscrire
