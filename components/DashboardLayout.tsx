@@ -1,12 +1,14 @@
+// app/components/DashboardLayout.tsx
+"use client";
+
 import { useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useRouter, usePathname } from "next/navigation";
 import {
   LayoutDashboard, FileText, Briefcase, Bookmark, MessageSquare,
-  Bell, Settings, HelpCircle, ChevronLeft, Search, Upload, Menu, X,
-  LogOut, Crown
+  Bell, Settings, HelpCircle, ChevronLeft, Search, Upload, Menu,
+  Crown
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { useTranslation } from "@/contexts/LanguageContext";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
 
@@ -15,8 +17,8 @@ interface Props {
 }
 
 const DashboardLayout = ({ children }: Props) => {
-  const navigate = useNavigate();
-  const location = useLocation();
+  const router = useRouter();
+  const pathname = usePathname();
   const [collapsed, setCollapsed] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const { t } = useTranslation();
@@ -35,7 +37,7 @@ const DashboardLayout = ({ children }: Props) => {
     { icon: HelpCircle, label: t("sidebar_help"), path: "/dashboard/help" },
   ];
 
-  const isActive = (path: string) => location.pathname === path;
+  const isActive = (path: string) => pathname === path;
 
   const SidebarContent = () => (
     <div className="flex flex-col h-full">
@@ -62,7 +64,7 @@ const DashboardLayout = ({ children }: Props) => {
         {navItems.map((item) => (
           <button
             key={item.path}
-            onClick={() => { navigate(item.path); setMobileOpen(false); }}
+            onClick={() => { router.push(item.path); setMobileOpen(false); }}
             className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-colors ${
               isActive(item.path)
                 ? "bg-primary/10 text-primary font-medium"
@@ -80,7 +82,7 @@ const DashboardLayout = ({ children }: Props) => {
         {bottomItems.map((item) => (
           <button
             key={item.path}
-            onClick={() => { navigate(item.path); setMobileOpen(false); }}
+            onClick={() => { router.push(item.path); setMobileOpen(false); }}
             className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-colors ${
               isActive(item.path)
                 ? "bg-primary/10 text-primary font-medium"
@@ -112,7 +114,7 @@ const DashboardLayout = ({ children }: Props) => {
               variant="outline"
               size="sm"
               className="w-full text-xs border-primary/20 text-primary hover:bg-primary/10"
-              onClick={() => navigate("/dashboard/settings")}
+              onClick={() => router.push("/dashboard/settings")}
             >
               {t("sidebar_upgrade")}
             </Button>
@@ -161,7 +163,7 @@ const DashboardLayout = ({ children }: Props) => {
           </div>
           <div className="flex items-center gap-2">
             <LanguageSwitcher />
-            <Button size="sm" onClick={() => navigate("/builder")} className="gap-1.5">
+            <Button size="sm" onClick={() => router.push("/builder")} className="gap-1.5">
               <Upload className="w-3.5 h-3.5" /> {t("sidebar_new_resume")}
             </Button>
             <button className="relative p-2 rounded-lg hover:bg-secondary transition-colors">
