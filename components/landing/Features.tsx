@@ -1,3 +1,4 @@
+"use client"
 import { motion } from "framer-motion";
 import { Sparkles, Globe, Shield, Palette, Zap, FileCheck } from "lucide-react";
 import resumePreview from "@/assets/resume-preview.png";
