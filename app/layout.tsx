@@ -2,12 +2,13 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { LanguageProvider } from "@/contexts/LanguageContext";
 
-import { Poppins } from 'next/font/google'
+// Importation de Inter au lieu de Poppins
+import { Inter } from 'next/font/google'
 
-const poppins = Poppins({
+const inter = Inter({
   subsets: ['latin'],
-  weight: ['400','500','600','700','800'],
-  variable: '--font-poppins', // variable CSS pour Tailwind
+  // Inter est une font variable, on n'a généralement pas besoin de spécifier les weights
+  variable: '--font-inter', 
 })
 
 export default function RootLayout({
@@ -18,7 +19,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={poppins.variable}
+        className={`${inter.variable} antialiased`}
       >
         <LanguageProvider>
           {children}
