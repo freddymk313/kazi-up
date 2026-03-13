@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence, useScroll, useMotionValueEvent } from "framer-motion";
+import Link from "next/link";
 
 const navLinks = [
   { label: "Fonctionnalités", href: "#features" },
@@ -95,9 +96,11 @@ const Header = () => {
               <div className="h-[1px] bg-border/60 w-full" />
               <div className="flex flex-col gap-4">
                 <Button variant="ghost" className="w-full text-base py-6">Connexion</Button>
+                <Link href="/register">
                 <Button className="w-full rounded-full bg-primary text-white h-14 text-base font-bold shadow-lg shadow-primary/20">
                   S'inscrire
                 </Button>
+                </Link>
               </div>
             </div>
           </motion.div>
