@@ -30,9 +30,9 @@ const Header = () => {
             : "bg-background/50 backdrop-blur-sm border-transparent"}
         `}
       >
-        {/* Logo - Pur & Simple */}
-        <a href="#" className="flex items-center gap-2 group">
-          <div className="w-7 h-7 bg-primary rounded-full flex items-center justify-center">
+        {/* Logo */}
+        <a href="#" className="flex items-center gap-2">
+          <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
             <span className="text-white font-bold text-sm">K</span>
           </div>
           <span className="text-lg font-bold tracking-tight text-foreground">
@@ -40,7 +40,7 @@ const Header = () => {
           </span>
         </a>
 
-        {/* Desktop Navigation - Centrée et Minimaliste */}
+        {/* Desktop Navigation */}
         <div className="hidden md:flex items-center gap-8">
           {navLinks.map((link) => (
             <a
@@ -53,12 +53,12 @@ const Header = () => {
           ))}
         </div>
 
-        {/* Auth Actions - Style Lowker */}
+        {/* Auth Actions */}
         <div className="hidden md:flex items-center gap-3">
-          <Button variant="ghost" className="text-[13px] font-medium px-4 hover:bg-transparent hover:text-primary">
+          <Button variant="ghost" className="text-[13px] font-medium px-4 hover:bg-transparent hover:text-primary transition-colors">
             Connexion
           </Button>
-          <Button className="rounded-full bg-foreground text-background hover:bg-foreground/90 px-6 text-[13px] font-medium transition-all">
+          <Button className="rounded-full bg-primary text-primary-foreground hover:bg-primary/90 h-11 px-8 text-[13px] font-semibold shadow-lg shadow-primary/20 transition-all active:scale-95">
             S'inscrire
           </Button>
         </div>
@@ -72,30 +72,32 @@ const Header = () => {
         </button>
       </nav>
 
-      {/* Mobile Menu - Adapté au style arrondi */}
+      {/* Mobile Menu */}
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.95 }}
-            className="fixed inset-x-4 top-20 z-40 md:hidden bg-background border border-border rounded-[2rem] p-6 shadow-2xl"
+            initial={{ opacity: 0, scale: 0.95, y: -10 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.95, y: -10 }}
+            className="fixed inset-x-4 top-20 z-40 md:hidden bg-background border border-border rounded-[2.5rem] p-8 shadow-2xl"
           >
-            <div className="flex flex-col gap-5 text-center">
+            <div className="flex flex-col gap-6 text-center">
               {navLinks.map((link) => (
                 <a
                   key={link.label}
                   href={link.href}
-                  className="text-base font-medium text-foreground"
+                  className="text-lg font-medium text-foreground"
                   onClick={() => setMobileOpen(false)}
                 >
                   {link.label}
                 </a>
               ))}
-              <hr className="border-border/50" />
-              <div className="flex flex-col gap-3">
-                <Button variant="ghost" className="w-full text-base">Connexion</Button>
-                <Button className="w-full rounded-full bg-primary text-white">S'inscrire</Button>
+              <div className="h-[1px] bg-border/60 w-full" />
+              <div className="flex flex-col gap-4">
+                <Button variant="ghost" className="w-full text-base py-6">Connexion</Button>
+                <Button className="w-full rounded-full bg-primary text-white h-14 text-base font-bold shadow-lg shadow-primary/20">
+                  S'inscrire
+                </Button>
               </div>
             </div>
           </motion.div>
