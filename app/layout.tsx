@@ -1,26 +1,21 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { LanguageProvider } from "@/contexts/LanguageContext";
+import { Geist } from "next/font/google";
 
-// Importation de Inter au lieu de Poppins
-import { Inter } from 'next/font/google'
-
-const inter = Inter({
-  subsets: ['latin'],
-  // Inter est une font variable, on n'a généralement pas besoin de spécifier les weights
-  variable: '--font-inter', 
-})
+const geist = Geist({
+  subsets: ["latin"],
+  variable: "--font-geist",
+});
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang="en">
-      <body
-        className={`${inter.variable} antialiased`}
-      >
+      <body className={`${geist.variable} antialiased`}>
         <LanguageProvider>
           {children}
         </LanguageProvider>

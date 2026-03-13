@@ -66,7 +66,7 @@ const Header = () => {
           <Link href="/login">
             <Button
               variant="ghost"
-              className="text-base font-medium px-4 hover:bg-transparent hover:text-primary transition-colors"
+              className="text-base *font-medium bg-transparent h-12 px-8 rounded-full hover:bg-accent hover:text-primary transition"
             >
               Connexion
             </Button>
