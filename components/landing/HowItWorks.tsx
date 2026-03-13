@@ -34,14 +34,21 @@ const HowItWorks = () => {
         
         {/* Header de section */}
         <div className="flex flex-col items-center text-center max-w-3xl mx-auto mb-20">
-          <motion.div
+          {/* <motion.div
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             className="px-4 py-1.5 rounded-full bg-secondary/5 text-secondary text-xs font-bold uppercase tracking-wider mb-4 border border-secondary/10"
           >
             Le processus
-          </motion.div>
+          </motion.div> */}
+          <motion.span 
+             initial={{ opacity: 0 }}
+             whileInView={{ opacity: 1 }}
+             className="px-4 py-1.5 rounded-full bg-primary/10 text-primary text-[12px] font-bold uppercase tracking-[0.2em] mb-4"
+          >
+            Processus
+          </motion.span>
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -49,7 +56,7 @@ const HowItWorks = () => {
             transition={{ delay: 0.1 }}
             className="text-4xl md:text-5xl font-bold tracking-tight text-foreground leading-tight"
           >
-            Votre prochain emploi commence en <span className="text-primary">3 étapes</span>
+            Votre prochain emploi commence en <span className="text-primary italic">3 étapes</span> 
           </motion.h2>
         </div>
 
@@ -66,7 +73,7 @@ const HowItWorks = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.2 }}
-              className="group relative bg-white p-8 rounded-[2.5rem] border border-border/60 hover:border-primary/50 hover:shadow-[0_20px_50px_rgba(249,115,22,0.1)] transition-all duration-500 flex flex-col"
+              className="group relative bg-white p-8 rounded-[2.5rem] border border-primary hover:border-primary/50 hover:shadow-[0_20px_50px_rgba(249,115,22,0.1)] transition-all duration-500 flex flex-col"
             >
               {/* Badge Numéro en arrière-plan */}
               <div className="absolute top-6 right-8 text-7xl font-black text-slate-50 group-hover:text-primary/5 transition-colors duration-500 select-none z-0">
