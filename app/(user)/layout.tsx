@@ -1,5 +1,5 @@
 
-export default function DashboardLayout({
+export default function UserLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
