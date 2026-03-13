@@ -27,8 +27,9 @@ const Header = () => {
   });
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 flex justify-center p-4 md:p-6 transition-all duration-300">
-      <nav
+    // <header className="fixed top-0 left-0 right-0 z-50 flex justify-center p-4 md:p-6 transition-all duration-300">
+    <header className="fixed top-0 left-1/2 -translate-x-1/2 w-full z-50 flex justify-center p-4 md:p-6 transition-all duration-300">
+      {/* <nav
         className={`
           flex items-center justify-between w-full max-w-7xl px-6 h-14 md:h-19 rounded-full transition-all duration-300
           ${
@@ -37,7 +38,16 @@ const Header = () => {
               : "bg-background/50 backdrop-blur-sm"
           }
         `}
-      >
+      > */}
+      <nav
+  className={`
+    flex items-center justify-between w-full max-w-7xl px-6 h-14 md:h-19 rounded-full transition-all duration-300
+    ${scrolled
+        ? "bg-background/80 backdrop-blur-md shadow-md border border-white/20"
+        : "bg-background/50 backdrop-blur-sm border border-transparent"
+    }
+  `}
+>
         {/* Logo */}
         <a href="#" className="flex items-center gap-2">
           <div className="w-9 h-9 bg-primary rounded-full flex items-center justify-center">
@@ -95,7 +105,7 @@ const Header = () => {
             initial={{ opacity: 0, scale: 0.95, y: -10 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: -10 }}
-            className="fixed inset-x-4 top-20 z-40 md:hidden bg-background border border-border rounded-[2.5rem] p-8 shadow-2xl"
+            className="fixed inset-x-4 top-20 z-40 md:hidden bg-background rounded-[2.5rem] p-8 shadow-2xl"
           >
             <div className="flex flex-col gap-6 text-center">
               {navLinks.map((link) => (
@@ -117,7 +127,7 @@ const Header = () => {
                 </Link>
 
                 <Link href="/register">
-                  <Button className="w-full rounded-full bg-primary text-white h-14 text-base font-bold shadow-lg shadow-primary/20">
+                  <Button className="w-full rounded-full bg-primary text-white h-14 text-base font-bold">
                     S'inscrire
                   </Button>
                 </Link>

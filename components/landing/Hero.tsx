@@ -111,7 +111,7 @@ const Hero = () => {
           </motion.div>
         </div>
 
-        {/* Hero Visual - Dashboard Style comme ton image */}
+        {/* Hero Visual - CV Style + ulistration */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
