@@ -1,7 +1,8 @@
-"use client"
+"use client";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { ArrowRight, CheckCircle2, Sparkles, Star } from "lucide-react";
+import Image from "next/image";
 
 const Hero = () => {
   return (
@@ -18,7 +19,7 @@ const Hero = () => {
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-border shadow-sm mb-8"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent *border border-primary mb-8"
           >
             <Sparkles className="w-4 h-4 text-primary" />
             <span className="text-xs md:text-sm font-medium text-foreground">
@@ -33,9 +34,10 @@ const Hero = () => {
             transition={{ delay: 0.1 }}
             className="text-5xl md:text-7xl font-bold tracking-tight text-foreground leading-[1.1] mb-8"
           >
-            Décrochez plus d'offres avec un <span className="relative inline-block">
+            Décrochez plus d'offres avec un{" "}
+            <span className="relative inline-block">
               CV optimisé
-              <motion.span 
+              <motion.span
                 initial={{ width: 0 }}
                 animate={{ width: "100%" }}
                 transition={{ delay: 0.8, duration: 0.8 }}
@@ -51,7 +53,8 @@ const Hero = () => {
             transition={{ delay: 0.2 }}
             className="text-lg md:text-xl text-muted-foreground max-w-2xl mb-10 leading-relaxed"
           >
-            Concevez un CV professionnel en 5 minutes. Nos modèles sont conçus pour passer les filtres ATS et impressionner les recruteurs en RDC.
+            Concevez un CV professionnel en 5 minutes. Nos modèles sont conçus
+            pour passer les filtres ATS et impressionner les recruteurs en RDC.
           </motion.p>
 
           {/* Buttons CTA */}
@@ -61,11 +64,18 @@ const Hero = () => {
             transition={{ delay: 0.3 }}
             className="flex flex-col sm:flex-row gap-4 mb-12"
           >
-            <Button size="lg" className="h-14 px-8 rounded-full bg-primary text-white text-md font-semibold shadow-xl shadow-primary/25 hover:bg-primary/90 hover:scale-105 transition-all">
+            <Button
+              size="lg"
+              className="h-14 px-8 rounded-full bg-primary text-white font-semibold hover:bg-primary/90 transition-all"
+            >
               Commencer gratuitement
               <ArrowRight className="ml-2 w-5 h-5" />
             </Button>
-            <Button size="lg" variant="outline" className="h-14 px-8 rounded-full border-border bg-white/50 backdrop-blur-sm text-md font-semibold hover:bg-white transition-all">
+            <Button
+              size="lg"
+              variant="outline"
+              className="h-14 px-8 rounded-full border-border bg-white/50 backdrop-blur-sm font-semibold hover:bg-white transition-all"
+            >
               Voir les modèles
             </Button>
           </motion.div>
@@ -79,17 +89,23 @@ const Hero = () => {
           >
             <div className="flex -space-x-3">
               {[1, 2, 3, 4].map((i) => (
-                <div key={i} className={`w-10 h-10 rounded-full border-2 border-white bg-slate-200 shadow-sm flex items-center justify-center overflow-hidden`}>
-                   <img src={`https://i.pravatar.cc/100?u=${i}`} alt="user" />
+                <div
+                  key={i}
+                  className={`w-10 h-10 rounded-full border-2 border-white bg-slate-200 shadow-sm flex items-center justify-center overflow-hidden`}
+                >
+                  <img src={`https://i.pravatar.cc/100?u=${i}`} alt="user" />
                 </div>
               ))}
             </div>
             <div className="text-left">
               <div className="flex items-center gap-1 text-orange-500">
-                {[...Array(5)].map((_, i) => <Star key={i} className="w-3 h-3 fill-current" />)}
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} className="w-3 h-3 fill-current" />
+                ))}
               </div>
               <p className="text-sm text-muted-foreground">
-                <span className="font-bold text-foreground">2 500+</span> utilisateurs satisfaits
+                <span className="font-bold text-foreground">2 500+</span>{" "}
+                utilisateurs satisfaits
               </p>
             </div>
           </motion.div>
@@ -100,52 +116,110 @@ const Hero = () => {
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4, duration: 1 }}
-          className="relative max-w-5xl mx-auto"
+          className="relative max-w-3xl mx-auto group px-4 md:px-0"
         >
-          <div className="relative rounded-2xl border border-border bg-white/50 p-2 shadow-2xl backdrop-blur-sm">
-             {/* Simulant une interface de CV Maker */}
-            <div className="bg-white rounded-xl border border-border/50 overflow-hidden shadow-inner aspect-[16/9] flex flex-col md:flex-row">
-               <div className="w-full md:w-1/3 border-r border-border/50 p-6 bg-slate-50/50">
-                  <div className="space-y-4">
-                    {[1, 2, 3, 4].map(i => <div key={i} className="h-2 w-full bg-slate-200 rounded animate-pulse" />)}
-                  </div>
-               </div>
-               <div className="flex-1 p-8 relative">
-                  {/* Le CV flottant au milieu */}
-                  <div className="w-full h-full bg-white border border-border shadow-2xl rounded-lg p-6 flex flex-col gap-4">
-                      <div className="h-8 w-1/2 bg-slate-100 rounded" />
-                      <div className="space-y-2">
-                        <div className="h-3 w-full bg-slate-50 rounded" />
-                        <div className="h-3 w-full bg-slate-50 rounded" />
-                        <div className="h-3 w-2/3 bg-slate-50 rounded" />
-                      </div>
-                  </div>
+          {/* Effet de lueur derrière l'image */}
+          <div className="absolute -inset-4 bg-gradient-to-r from-primary/10 to-secondary/10 rounded-[2rem] blur-3xl opacity-50 group-hover:opacity-75 transition duration-1000"></div>
 
-                  {/* Badges flottants comme sur ton exemple */}
-                  <motion.div 
-                    animate={{ y: [0, -10, 0] }}
-                    transition={{ repeat: Infinity, duration: 4 }}
-                    className="absolute top-12 -right-4 md:-right-8 bg-white p-4 rounded-2xl shadow-xl border border-border flex items-center gap-3"
-                  >
-                    <div className="w-12 h-12 rounded-full border-4 border-success flex items-center justify-center text-xs font-bold">
-                      96%
-                    </div>
-                    <div>
-                      <p className="text-xs font-bold">Excellent score</p>
-                      <p className="text-[10px] text-muted-foreground">Optimisé pour l'IA</p>
-                    </div>
-                  </motion.div>
+          <div className="relative rounded-[2rem] border border-white/40 bg-white/20 p-2 shadow-2xl backdrop-blur-sm">
+            <Image
+              src="/landing/cv-hero-2.png"
+              alt="Aperçu du CV kaziUp"
+              width={800}
+              height={500}
+              className="w-full h-auto rounded-[1.5rem] shadow-sm"
+            />
 
-                  <motion.div 
-                    animate={{ y: [0, 10, 0] }}
-                    transition={{ repeat: Infinity, duration: 5, delay: 0.5 }}
-                    className="absolute bottom-12 -left-4 md:-left-8 bg-white px-4 py-3 rounded-xl shadow-xl border border-border flex items-center gap-2"
-                  >
-                    <CheckCircle2 className="w-5 h-5 text-success" />
-                    <span className="text-xs font-bold">Format ATS Valide</span>
-                  </motion.div>
-               </div>
-            </div>
+            {/* Badge Flottant 1 : Score ATS (Droite) */}
+            <motion.div
+              animate={{ y: [0, -12, 0] }}
+              transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
+              className="absolute top-8 -right-4 md:-right-12 bg-white/95 backdrop-blur-md p-3 md:p-4 rounded-2xl shadow-xl border border-slate-100 flex items-center gap-3 z-20"
+            >
+              <div className="relative w-10 h-10 md:w-12 md:h-12 flex items-center justify-center">
+                <svg className="w-full h-full rotate-[-90deg]">
+                  <circle
+                    cx="24"
+                    cy="24"
+                    r="20"
+                    stroke="currentColor"
+                    strokeWidth="4"
+                    fill="transparent"
+                    className="text-slate-100"
+                  />
+                  <circle
+                    cx="24"
+                    cy="24"
+                    r="20"
+                    stroke="currentColor"
+                    strokeWidth="4"
+                    fill="transparent"
+                    strokeDasharray="125.6"
+                    strokeDashoffset="12.5"
+                    className="text-primary"
+                  />
+                </svg>
+                <span className="absolute text-[9px] md:text-[10px] font-black">
+                  98%
+                </span>
+              </div>
+              <div>
+                <p className="text-[10px] md:text-xs font-black text-slate-900 leading-none">
+                  Score ATS
+                </p>
+                <p className="text-[9px] md:text-[10px] text-emerald-500 font-bold mt-1">
+                  Excellent
+                </p>
+              </div>
+            </motion.div>
+
+            {/* Badge Flottant 2 : Validation (Bas Gauche) */}
+            <motion.div
+              animate={{ y: [0, 12, 0] }}
+              transition={{
+                repeat: Infinity,
+                duration: 5,
+                ease: "easeInOut",
+                delay: 0.5,
+              }}
+              className="absolute bottom-10 -left-4 md:-left-12 bg-slate-900 text-white px-4 py-2.5 md:px-5 md:py-3 rounded-2xl shadow-2xl flex items-center gap-3 z-20"
+            >
+              <div className="bg-primary rounded-full p-1 shrink-0">
+                <CheckCircle2 className="w-3 h-3 md:w-4 md:h-4 text-white" />
+              </div>
+              <div>
+                <p className="text-[8px] md:text-[10px] font-bold text-primary-foreground/60 uppercase tracking-widest leading-none">
+                  Technologie
+                </p>
+                <p className="text-[10px] md:text-xs font-bold italic mt-1 leading-none">
+                  Format RDC Validé
+                </p>
+              </div>
+            </motion.div>
+
+            {/* NOUVEAU Badge Flottant 3 : Rapidité (Haut Gauche) */}
+            <motion.div
+              animate={{ y: [0, -10, 0] }}
+              transition={{
+                repeat: Infinity,
+                duration: 4.5,
+                ease: "easeInOut",
+                delay: 0.2,
+              }}
+              className="absolute top-24 -left-6 md:-left-16 bg-white/95 backdrop-blur-md p-3 md:p-4 rounded-2xl shadow-xl border border-slate-100 flex items-center gap-3 z-20"
+            >
+              <div className="w-10 h-10 md:w-12 md:h-12 bg-amber-50 rounded-full flex items-center justify-center shrink-0 border border-amber-100">
+                <Sparkles className="w-5 h-5 md:w-6 md:h-6 text-amber-500 fill-amber-500" />
+              </div>
+              <div>
+                <p className="text-[10px] md:text-xs font-black text-slate-900 leading-none">
+                  Rapidité
+                </p>
+                <p className="text-[9px] md:text-[10px] text-amber-600 font-bold mt-1 whitespace-nowrap">
+                  Généré en 5 min
+                </p>
+              </div>
+            </motion.div>
           </div>
         </motion.div>
       </div>
