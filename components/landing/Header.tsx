@@ -1,8 +1,13 @@
-"use client"
+"use client";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
-import { motion, AnimatePresence, useScroll, useMotionValueEvent } from "framer-motion";
+import {
+  motion,
+  AnimatePresence,
+  useScroll,
+  useMotionValueEvent,
+} from "framer-motion";
 import Link from "next/link";
 
 const navLinks = [
@@ -23,12 +28,14 @@ const Header = () => {
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 flex justify-center p-4 md:p-6 transition-all duration-300">
-      <nav 
+      <nav
         className={`
           flex items-center justify-between w-full max-w-7xl px-6 h-14 md:h-16 rounded-full transition-all duration-300 border
-          ${scrolled 
-            ? "bg-background/80 backdrop-blur-md border-border/50 shadow-sm" 
-            : "bg-background/50 backdrop-blur-sm border-transparent"}
+          ${
+            scrolled
+              ? "bg-background/80 backdrop-blur-md border-border/50 shadow-sm"
+              : "bg-background/50 backdrop-blur-sm border-transparent"
+          }
         `}
       >
         {/* Logo */}
@@ -56,7 +63,10 @@ const Header = () => {
 
         {/* Auth Actions */}
         <div className="hidden md:flex items-center gap-3">
-          <Button variant="ghost" className="text-[13px] font-medium px-4 hover:bg-transparent hover:text-primary transition-colors">
+          <Button
+            variant="ghost"
+            className="text-[13px] font-medium px-4 hover:bg-transparent hover:text-primary transition-colors"
+          >
             Connexion
           </Button>
           <Button className="rounded-full bg-primary text-primary-foreground hover:bg-primary/90 h-11 px-8 text-[13px] font-semibold shadow-lg shadow-primary/20 transition-all active:scale-95">
@@ -95,11 +105,13 @@ const Header = () => {
               ))}
               <div className="h-[1px] bg-border/60 w-full" />
               <div className="flex flex-col gap-4">
-                <Button variant="ghost" className="w-full text-base py-6">Connexion</Button>
-                <Link href="/register">
-                <Button className="w-full rounded-full bg-primary text-white h-14 text-base font-bold shadow-lg shadow-primary/20">
-                  S'inscrire
+                <Button variant="ghost" className="w-full text-base py-6">
+                  Connexion
                 </Button>
+                <Link href="/register">
+                  <Button className="w-full rounded-full bg-primary text-white h-14 text-base font-bold shadow-lg shadow-primary/20">
+                    S'inscrire
+                  </Button>
                 </Link>
               </div>
             </div>
