@@ -27,6 +27,8 @@
   --color-border: var(--border);
 
   --color-destructive: var(--destructive);
+
+  --color-ring: var(--ring)
 }
 
 :root {
@@ -50,6 +52,8 @@
   --border: #374151;
 
   --destructive: #ee3b3b;
+
+  --ring: #F97316;
 }
 
 .dark {
@@ -73,6 +77,8 @@
   --border: #F1F5F9;
 
   --destructive: #fa0909;
+
+  --ring: #F97316;
 }
 
 @layer base {

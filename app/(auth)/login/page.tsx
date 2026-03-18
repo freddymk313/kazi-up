@@ -83,7 +83,7 @@ const Login = () => {
                 <Input
                   id="identifier"
                   placeholder="nom@exemple.com ou 81 000..."
-                  className="pl-11 rounded-xl h-12 focus-visible:ring-primary"
+                  className="pl-11 rounded-xl h-12"
                 />
               </div>
             </div>
@@ -104,7 +104,7 @@ const Login = () => {
                   id="password"
                   type="password"
                   placeholder="••••••••"
-                  className="pl-11 rounded-xl h-12 focus-visible:ring-primary"
+                  className="pl-11 rounded-xl h-12"
                 />
               </div>
             </div>

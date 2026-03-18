@@ -81,7 +81,7 @@ export default function Builder() {
     <div className="h-screen flex flex-col bg-background overflow-hidden">
       {/* Top Bar */}
       <header className="shrink-0 z-50 bg-background">
-        <div className="px-2 sm:px-4 h-12 sm:h-14 flex items-center justify-between gap-1 sm:gap-3">
+        <div className="px-2 sm:px-4 h-14 sm:h-15 flex items-center justify-between gap-1 sm:gap-3">
           {/* Left */}
           <div className="flex items-center gap-1 sm:gap-3 shrink-0">
             <Button
@@ -145,7 +145,9 @@ export default function Builder() {
 
           {/* Right */}
           <div className="flex items-center gap-1 sm:gap-2 shrink-0">
-            {/* <LanguageSwitcher /> */}
+            <div className="hidden md:block">
+              <LanguageSwitcher />
+            </div>
 
             <Button
               variant="outline"
@@ -210,7 +212,7 @@ export default function Builder() {
             mobileView === "preview" ? "hidden sm:block" : "flex-1 min-h-0"
           }`}
         >
-          <div className="p-4 sm:p-6 lg:p-8 *max-w-[560px] *mx-auto pb-20 sm:pb-8">
+          <div className="p-4 sm:p-6 lg:p-8 *max-w-[560px] mx-auto pb-20 sm:pb-8">
             <ResumeForm data={data} onChange={handleChange} />
           </div>
         </div>
