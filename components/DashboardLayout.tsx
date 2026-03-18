@@ -42,13 +42,15 @@ const DashboardLayout = ({ children }: Props) => {
   const SidebarContent = () => (
     <div className="flex flex-col h-full">
       {/* Logo */}
-      <div className="px-4 h-16 flex items-center justify-between border-b border-sidebar-border shrink-0">
+      <div className="px-4 h-16 flex items-center justify-between shrink-0">
         {!collapsed && (
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
-              <FileText className="w-4 h-4 text-primary-foreground" />
-            </div>
-            <span className="font-display font-bold text-sm">ResumeAI</span>
+          <div className="w-9 h-9 bg-primary rounded-full flex items-center justify-center">
+            <span className="text-white font-bold text-sm">K</span>
+          </div>
+          <span className="text-xl font-bold tracking-tight text-foreground">
+            kazi<span className="text-primary">Up</span>
+          </span>
           </div>
         )}
         <button
@@ -60,7 +62,7 @@ const DashboardLayout = ({ children }: Props) => {
       </div>
 
       {/* Main Nav */}
-      <div className="flex-1 px-3 py-4 space-y-1 overflow-y-auto">
+      <div className="flex-1 mt-4 px-3 py-4 space-y-1 overflow-y-auto">
         {navItems.map((item) => (
           <button
             key={item.path}
@@ -78,7 +80,7 @@ const DashboardLayout = ({ children }: Props) => {
       </div>
 
       {/* Bottom */}
-      <div className="px-3 py-3 border-t border-sidebar-border space-y-1">
+      <div className="px-3 py-3 border-t border-accent space-y-1">
         {bottomItems.map((item) => (
           <button
             key={item.path}
@@ -113,7 +115,7 @@ const DashboardLayout = ({ children }: Props) => {
             <Button
               variant="outline"
               size="sm"
-              className="w-full text-xs border-primary/20 text-primary hover:bg-primary/10"
+              className="w-full text-xs border-primary/20 text-primary rounded-full hover:bg-primary/10"
               onClick={() => router.push("/dashboard/settings")}
             >
               {t("sidebar_upgrade")}
@@ -128,7 +130,7 @@ const DashboardLayout = ({ children }: Props) => {
     <div className="h-screen flex bg-background overflow-hidden">
       {/* Desktop Sidebar */}
       <aside
-        className={`hidden md:flex flex-col shrink-0 bg-sidebar border-r border-sidebar-border transition-all duration-300 ${
+        className={`hidden md:flex flex-col shrink-0 bg-sidebar transition-all duration-300 ${
           collapsed ? "w-16" : "w-60"
         }`}
       >
@@ -148,27 +150,30 @@ const DashboardLayout = ({ children }: Props) => {
       {/* Main Content */}
       <div className="flex-1 flex flex-col min-w-0">
         {/* Top Header */}
-        <header className="h-16 shrink-0 bg-card border-b border-border flex items-center justify-between px-4 md:px-6 gap-4">
+        <header className="h-16 shrink-0 bg-background flex items-center justify-between px-4 md:px-6 gap-4">
           <div className="flex items-center gap-3">
             <button onClick={() => setMobileOpen(true)} className="md:hidden p-2 rounded-lg hover:bg-secondary transition-colors">
               <Menu className="w-5 h-5" />
             </button>
-            <div className="hidden sm:flex items-center gap-2 bg-secondary rounded-lg px-3 py-2 w-64">
+            {/* <div className="hidden sm:flex items-center gap-2 bg-secondary rounded-lg px-3 py-2 w-64">
               <Search className="w-4 h-4 text-muted-foreground" />
               <input
                 placeholder={t("sidebar_search")}
                 className="bg-transparent text-sm outline-none w-full placeholder:text-muted-foreground"
               />
-            </div>
+            </div> */}
           </div>
           <div className="flex items-center gap-2">
             <LanguageSwitcher />
-            <Button size="sm" onClick={() => router.push("/builder")} className="gap-1.5">
+            <Button onClick={() => router.push("/builder")} 
+              className="rounded-full text-base bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-8 font-semibold transition-all active:scale-95"
+              
+              >
               <Upload className="w-3.5 h-3.5" /> {t("sidebar_new_resume")}
             </Button>
-            <button className="relative p-2 rounded-lg hover:bg-secondary transition-colors">
-              <Bell className="w-4 h-4 text-muted-foreground" />
-              <span className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-primary" />
+            <button className="relative p-2 rounded-full hover:bg-accent transition-colors">
+              <Bell className="w-4.5 h-4.5 text-muted-foreground" />
+              <span className="absolute top-1 right-1.5 w-2.5 h-2.5 rounded-full bg-primary" />
             </button>
             <button className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center text-primary font-display font-bold text-xs">
               AJ
@@ -177,7 +182,7 @@ const DashboardLayout = ({ children }: Props) => {
         </header>
 
         {/* Page Content */}
-        <main className="flex-1 overflow-y-auto p-4 md:p-6 lg:p-8">
+        <main className="flex-1 overflow-y-auto bg-accent p-4 md:p-6 lg:p-8">
           {children}
         </main>
       </div>
