@@ -40,14 +40,15 @@ const Header = () => {
         `}
       > */}
       <nav
-  className={`
+        className={`
     flex items-center justify-between w-full max-w-7xl px-6 h-14 md:h-19 rounded-full transition-all duration-300
-    ${scrolled
+    ${
+      scrolled
         ? "bg-background/80 backdrop-blur-md shadow-md border border-white/20"
         : "bg-background/50 backdrop-blur-sm border border-transparent"
     }
   `}
->
+      >
         {/* Logo */}
         <a href="#" className="flex items-center gap-2">
           <div className="w-9 h-9 bg-primary rounded-full flex items-center justify-center">
