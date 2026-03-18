@@ -7,7 +7,7 @@ import { ExperienceItem, EducationItem } from "./PDFLayoutComponents";
 const styles = StyleSheet.create({
   page: { backgroundColor: "#ffffff", padding: 18 },
   border: {
-    border: "1pt solid #2d2d2d",
+    border: "2pt solid #2d2d2d",
     padding: "30pt 30pt 30pt 30pt",
     flex: 1,
   },
@@ -212,7 +212,7 @@ const ClassicBorderedPDF = ({ data }: Props) => {
               <View style={styles.skillsGrid}>
                 {skills.map((skill, i) => (
                   <View key={i} style={styles.skillItem}>
-                    <Text style={styles.skillBullet}>•</Text>
+                    {/* <Text style={styles.skillBullet}>•</Text> */}
                     <Text style={styles.skillText}>{skill}</Text>
                   </View>
                 ))}
