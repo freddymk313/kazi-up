@@ -23,6 +23,8 @@
   --color-card-foreground: var(--card-foreground);
 
   --color-success: var(--success);
+
+  --color-border: var(--border);
 }
 
 :root {
@@ -42,6 +44,8 @@
   --card-foreground: #374151;
 
   --success: #10B981;
+
+  --border: #374151;
 }
 
 .dark {
@@ -61,6 +65,8 @@
   --card-foreground: #F1F5F9;
 
   --success: #10B981;
+
+  --border: #F1F5F9;
 }
 
 @layer base {

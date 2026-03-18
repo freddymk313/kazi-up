@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 
 const CallToAction = () => {
   return (
-    <section className="py-20 md:py-28 bg-foreground text-background">
+    <section className="py-20 md:py-28 bg-accent-foreground/90 text-background">
       <div className="container text-center">
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
@@ -13,13 +13,15 @@ const CallToAction = () => {
           className="max-w-2xl mx-auto space-y-6"
         >
           <h2 className="text-3xl md:text-4xl font-bold">
-            Prêt à décrocher votre prochain emploi ?
+            Prêt à décrocher votre prochain <span className="text-primary italic">emploi ?</span>
           </h2>
           <p className="text-background/70 text-lg">
             Rejoignez des milliers de Congolais qui font confiance à kaziUp pour créer des CV professionnels et percutants.
           </p>
           <div className="flex flex-wrap justify-center gap-4 pt-4">
-            <Button size="lg">
+            <Button
+              className="text-base *font-medium *bg-transparent h-12 px-8 rounded-full *hover:bg-accent hover:border hover:border-border transition"
+            >
               Créer mon CV gratuitement
             </Button>
           </div>

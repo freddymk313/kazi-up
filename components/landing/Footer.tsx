@@ -1,6 +1,7 @@
 "use client"
 import { motion } from "framer-motion";
 import { Facebook, Instagram, Linkedin, Twitter, Heart } from "lucide-react";
+import Link from "next/link";
 
 const footerLinks = {
   Produit: [
@@ -30,14 +31,14 @@ const Footer = () => {
           
           {/* Section Brand / Logo */}
           <div className="lg:col-span-2 space-y-6">
-            <a href="#" className="flex items-center gap-2">
-              <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center shadow-lg shadow-primary/20">
+            <Link href="#" className="flex items-center gap-2">
+              <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
                 <span className="text-white font-bold text-sm">K</span>
               </div>
               <span className="text-xl font-bold tracking-tight text-foreground">
                 kazi<span className="text-primary">Up</span>
               </span>
-            </a>
+            </Link>
             <p className="text-[15px] text-muted-foreground leading-relaxed max-w-sm">
               Propulsez votre carrière avec le générateur de CV intelligent n°1 en RDC. 
               Conçu pour les standards internationaux, optimisé pour le succès local.
@@ -47,7 +48,7 @@ const Footer = () => {
                 <a 
                   key={i} 
                   href="#" 
-                  className="w-9 h-9 rounded-full bg-slate-50 flex items-center justify-center text-muted-foreground hover:bg-primary hover:text-white transition-all duration-300 shadow-sm"
+                  className="w-9 h-9 rounded-full *bg-slate-50 flex items-center justify-center text-muted-foreground hover:bg-primary hover:text-white transition-all duration-300"
                 >
                   <Icon className="w-4 h-4" />
                 </a>
@@ -64,13 +65,14 @@ const Footer = () => {
               <ul className="space-y-4">
                 {links.map((link) => (
                   <li key={link.name}>
-                    <a 
+                    <Link 
                       href={link.href} 
+                      
                       className="text-[14px] text-muted-foreground hover:text-primary transition-colors flex items-center group"
                     >
                       <span className="w-0 group-hover:w-2 h-[1px] bg-primary mr-0 group-hover:mr-2 transition-all" />
                       {link.name}
-                    </a>
+                    </Link>
                   </li>
                 ))}
               </ul>
@@ -79,17 +81,17 @@ const Footer = () => {
         </div>
 
         {/* Bottom Bar */}
-        <div className="pt-10 border-t border-border/60 flex flex-col md:flex-row justify-between items-center gap-6 text-[13px] text-muted-foreground">
+        <div className="pt-10 border-t border-border/10 flex flex-col md:flex-row justify-between items-center gap-6 text-[13px] text-muted-foreground">
           <div className="flex items-center gap-1">
             © {new Date().getFullYear()} <span className="font-bold text-foreground mx-1 text-primary">kaziUp</span> 
-            — Une création de <a href="https://nordevagency.vercel.app/" target="_blank" className="font-bold text-foreground hover:underline ml-1 underline-offset-4 decoration-primary">Nordev Agency</a>.
+            — Product of <a href="https://nordevagency.vercel.app/" target="_blank" className="font-bold text-foreground hover:underline ml-1 underline-offset-4 decoration-primary">Nordev Agency</a>.
           </div>
           
           <div className="flex items-center gap-4">
-            <div className="flex items-center gap-1">
+            {/* <div className="flex items-center gap-1">
               Fait avec <Heart className="w-3 h-3 text-red-500 fill-current" /> à Lubumbashi
-            </div>
-            <div className="w-1 h-1 bg-border rounded-full hidden md:block" />
+            </div> */}
+            {/* <div className="w-1 h-1 bg-border rounded-full hidden md:block" /> */}
             <div className="text-foreground font-medium">République Démocratique du Congo</div>
           </div>
         </div>
