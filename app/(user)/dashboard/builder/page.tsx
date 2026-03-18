@@ -68,7 +68,7 @@ export default function Builder() {
     { id: "simple-accent", label: "Simple" },
     { id: "classic-bordered", label: "Classic" },
     { id: "clean-professional", label: "Clean" },
-    { id: "corporate-classic", label: "Corporate" },
+    // { id: "corporate-classic", label: "Corporate" },
     { id: "professional-dark-sidebar", label: "Dark Pro" },
     // { id: "blue-card-professional", label: "Blue Card" },
     { id: "minimalist-engineer", label: "Minimalist" },
