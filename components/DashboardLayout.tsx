@@ -4,9 +4,19 @@
 import { useState } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import {
-  LayoutDashboard, FileText, Briefcase, Bookmark, MessageSquare,
-  Bell, Settings, HelpCircle, ChevronLeft, Search, Upload, Menu,
-  Crown
+  LayoutDashboard,
+  FileText,
+  Briefcase,
+  Bookmark,
+  MessageSquare,
+  Bell,
+  Settings,
+  HelpCircle,
+  ChevronLeft,
+  Search,
+  Upload,
+  Menu,
+  Crown,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useTranslation } from "@/contexts/LanguageContext";
@@ -24,16 +34,44 @@ const DashboardLayout = ({ children }: Props) => {
   const { t } = useTranslation();
 
   const navItems = [
-    { icon: LayoutDashboard, label: t("sidebar_dashboard"), path: "/dashboard" },
-    { icon: FileText, label: t("sidebar_my_resumes"), path: "/dashboard/resumes" },
-    { icon: Briefcase, label: t("sidebar_job_matches"), path: "/dashboard/jobs" },
-    { icon: Bookmark, label: t("sidebar_saved_jobs"), path: "/dashboard/saved" },
-    { icon: MessageSquare, label: t("sidebar_messages"), path: "/dashboard/messages" },
-    { icon: Bell, label: t("sidebar_notifications"), path: "/dashboard/notifications" },
+    {
+      icon: LayoutDashboard,
+      label: t("sidebar_dashboard"),
+      path: "/dashboard",
+    },
+    {
+      icon: FileText,
+      label: t("sidebar_my_resumes"),
+      path: "/dashboard/resumes",
+    },
+    {
+      icon: Briefcase,
+      label: t("sidebar_job_matches"),
+      path: "/dashboard/jobs",
+    },
+    {
+      icon: Bookmark,
+      label: t("sidebar_saved_jobs"),
+      path: "/dashboard/saved",
+    },
+    {
+      icon: MessageSquare,
+      label: t("sidebar_messages"),
+      path: "/dashboard/messages",
+    },
+    {
+      icon: Bell,
+      label: t("sidebar_notifications"),
+      path: "/dashboard/notifications",
+    },
   ];
 
   const bottomItems = [
-    { icon: Settings, label: t("sidebar_settings"), path: "/dashboard/settings" },
+    {
+      icon: Settings,
+      label: t("sidebar_settings"),
+      path: "/dashboard/settings",
+    },
     { icon: HelpCircle, label: t("sidebar_help"), path: "/dashboard/help" },
   ];
 
@@ -45,19 +83,24 @@ const DashboardLayout = ({ children }: Props) => {
       <div className="px-4 h-16 flex items-center justify-between shrink-0">
         {!collapsed && (
           <div className="flex items-center gap-2">
-          <div className="w-9 h-9 bg-primary rounded-full flex items-center justify-center">
-            <span className="text-white font-bold text-sm">K</span>
-          </div>
-          <span className="text-xl font-bold tracking-tight text-foreground">
-            kazi<span className="text-primary">Up</span>
-          </span>
+            <div className="w-9 h-9 bg-primary rounded-full flex items-center justify-center">
+              <span className="text-white font-bold text-sm">K</span>
+            </div>
+            <span className="text-xl font-bold tracking-tight text-foreground">
+              kazi<span className="text-primary">Up</span>
+            </span>
           </div>
         )}
         <button
-          onClick={() => { setCollapsed(!collapsed); setMobileOpen(false); }}
+          onClick={() => {
+            setCollapsed(!collapsed);
+            setMobileOpen(false);
+          }}
           className="p-1.5 rounded-lg hover:bg-sidebar-accent transition-colors"
         >
-          <ChevronLeft className={`w-4 h-4 transition-transform ${collapsed ? "rotate-180" : ""}`} />
+          <ChevronLeft
+            className={`w-4 h-4 transition-transform ${collapsed ? "rotate-180" : ""}`}
+          />
         </button>
       </div>
 
@@ -66,7 +109,10 @@ const DashboardLayout = ({ children }: Props) => {
         {navItems.map((item) => (
           <button
             key={item.path}
-            onClick={() => { router.push(item.path); setMobileOpen(false); }}
+            onClick={() => {
+              router.push(item.path);
+              setMobileOpen(false);
+            }}
             className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-colors ${
               isActive(item.path)
                 ? "bg-primary/10 text-primary font-medium"
@@ -84,7 +130,10 @@ const DashboardLayout = ({ children }: Props) => {
         {bottomItems.map((item) => (
           <button
             key={item.path}
-            onClick={() => { router.push(item.path); setMobileOpen(false); }}
+            onClick={() => {
+              router.push(item.path);
+              setMobileOpen(false);
+            }}
             className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-colors ${
               isActive(item.path)
                 ? "bg-primary/10 text-primary font-medium"
@@ -108,7 +157,8 @@ const DashboardLayout = ({ children }: Props) => {
               <div className="min-w-0">
                 <p className="text-sm font-medium truncate">Alex Johnson</p>
                 <p className="text-xs text-muted-foreground flex items-center gap-1">
-                  <Crown className="w-3 h-3 text-primary" /> {t("sidebar_premium")}
+                  <Crown className="w-3 h-3 text-primary" />{" "}
+                  {t("sidebar_premium")}
                 </p>
               </div>
             </div>
@@ -140,7 +190,10 @@ const DashboardLayout = ({ children }: Props) => {
       {/* Mobile Sidebar Overlay */}
       {mobileOpen && (
         <div className="fixed inset-0 z-50 md:hidden">
-          <div className="absolute inset-0 bg-foreground/20 backdrop-blur-sm" onClick={() => setMobileOpen(false)} />
+          <div
+            className="absolute inset-0 bg-foreground/20 backdrop-blur-sm"
+            onClick={() => setMobileOpen(false)}
+          />
           <aside className="absolute left-0 top-0 bottom-0 w-60 bg-sidebar shadow-elevated">
             <SidebarContent />
           </aside>
@@ -152,7 +205,10 @@ const DashboardLayout = ({ children }: Props) => {
         {/* Top Header */}
         <header className="h-16 shrink-0 bg-background flex items-center justify-between px-4 md:px-6 gap-4">
           <div className="flex items-center gap-3">
-            <button onClick={() => setMobileOpen(true)} className="md:hidden p-2 rounded-lg hover:bg-secondary transition-colors">
+            <button
+              onClick={() => setMobileOpen(true)}
+              className="md:hidden p-2 rounded-lg hover:bg-secondary transition-colors"
+            >
               <Menu className="w-5 h-5" />
             </button>
             {/* <div className="hidden sm:flex items-center gap-2 bg-secondary rounded-lg px-3 py-2 w-64">
@@ -165,9 +221,10 @@ const DashboardLayout = ({ children }: Props) => {
           </div>
           <div className="flex items-center gap-2">
             <LanguageSwitcher />
-            <Button onClick={() => router.push("/builder")} 
+            <Button
+              onClick={() => router.push("/builder")}
               className="rounded-full text-base bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-8 font-semibold transition-all active:scale-95"
-              >
+            >
               <Upload className="w-3.5 h-3.5" /> {t("sidebar_new_resume")}
             </Button>
             <button className="relative p-2 rounded-full hover:bg-accent transition-colors">

@@ -59,7 +59,11 @@ const DownloadButton = ({ fileName = "resume.pdf", data, template }: Props) => {
   };
 
   return (
-    <Button onClick={handleDownload} disabled={loading} className="gap-2">
+    <Button onClick={handleDownload} disabled={loading} 
+              className="rounded-full text-sm bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-8 font-semibold transition-all active:scale-95"
+    
+    // className="gap-2"
+    >
       {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Download className="w-4 h-4" />}
       {loading ? t("builder_generating") : t("builder_download_pdf")}
     </Button>
