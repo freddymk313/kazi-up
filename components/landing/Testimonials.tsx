@@ -38,11 +38,11 @@ const Testimonials = () => {
             whileInView={{ opacity: 1, scale: 1 }}
             className="flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-[11px] font-bold uppercase tracking-widest mb-6"
           >
-            <Star className="w-3 h-3 fill-current" />
+            {/* <Star className="w-3 h-3 fill-current" /> */}
             La confiance de nos candidats
           </motion.div>
           <h2 className="text-4xl md:text-5xl font-black tracking-tight text-foreground mb-4">
-            Rejoignez des milliers de <span className="text-primary">succès</span>
+            Rejoignez des milliers de <span className="text-primary italic">succès</span>
           </h2>
           <p className="text-muted-foreground text-lg">
             Découvrez comment kaziUp propulse les carrières partout en RDC.
@@ -59,7 +59,7 @@ const Testimonials = () => {
               viewport={{ once: true }}
               transition={{ delay: i * 0.1 }}
               whileHover={{ y: -8 }}
-              className="relative bg-white p-8 rounded-[2rem] border border-border/50 shadow-[0_15px_40px_-15px_rgba(0,0,0,0.05)] flex flex-col justify-between group transition-all duration-300"
+              className="relative bg-white p-8 rounded-[2rem] border border-primary shadow-[0_15px_40px_-15px_rgba(0,0,0,0.05)] flex flex-col justify-between group transition-all duration-300"
             >
               {/* Icône de citation discrète */}
               <Quote className="absolute top-8 right-8 w-10 h-10 text-slate-100 group-hover:text-primary/10 transition-colors duration-300" />
@@ -76,7 +76,7 @@ const Testimonials = () => {
                 </p>
               </div>
 
-              <div className="flex items-center gap-4 border-t border-border/40 pt-6">
+              <div className="flex items-center gap-4 border-t border-primary pt-6">
                 <div className="relative">
                   <img 
                     src={t.avatar} 
@@ -85,7 +85,7 @@ const Testimonials = () => {
                   />
                   {t.verified && (
                     <div className="absolute -bottom-1 -right-1 bg-white rounded-full p-0.5 shadow-sm">
-                      <CheckCircle className="w-4 h-4 text-success fill-success/10" />
+                      <CheckCircle className="w-4 h-4 text-primary fill-success/10" />
                     </div>
                   )}
                 </div>

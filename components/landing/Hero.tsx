@@ -35,7 +35,7 @@ const Hero = () => {
             className="text-5xl md:text-7xl font-bold tracking-tight text-foreground leading-[1.1] mb-8"
           >
             Décrochez plus d'offres avec un{" "}
-            <span className="relative inline-block">
+            <span className="relative inline-block italic text-primary">
               CV optimisé
               <motion.span
                 initial={{ width: 0 }}
