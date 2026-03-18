@@ -9,7 +9,7 @@ import Testimonials from "@/components/landing/Testimonials";
 
 export default function Home() {
   return (
-    <div className="w-fit">
+    <div>
       <Header />
       <Hero />
       <HowItWorks />
