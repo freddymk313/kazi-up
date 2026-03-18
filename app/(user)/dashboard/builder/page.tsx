@@ -184,6 +184,15 @@ export default function Builder() {
               </button>
             </div>
 
+            <Button
+              variant="outline"
+              size="icon"
+              onClick={() => setImportOpen(true)}
+              className="flex md:hidden ml-2 h-8 w-8"
+            >
+              <Upload className="w-3 h-3 md:w-4 md:h-4" />
+            </Button>
+
             <DownloadButton
               fileName={`${getFullName(data.personalInfo) || "resume"}.pdf`}
               data={data}
@@ -201,7 +210,7 @@ export default function Builder() {
             mobileView === "preview" ? "hidden sm:block" : "flex-1 min-h-0"
           }`}
         >
-          <div className="*p-4 sm:p-6 lg:p-8 *max-w-[560px] *mx-auto pb-20 sm:pb-8">
+          <div className="p-4 sm:p-6 lg:p-8 *max-w-[560px] *mx-auto pb-20 sm:pb-8">
             <ResumeForm data={data} onChange={handleChange} />
           </div>
         </div>
