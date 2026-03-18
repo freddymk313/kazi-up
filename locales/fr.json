@@ -134,7 +134,7 @@
   "import_toast_title": "CV importé avec succès !",
   "import_toast_desc": "Vos données ont été remplies. Vérifiez et modifiez si nécessaire.",
 
-  "dashboard_welcome": "Bon retour, Alex 👋",
+  "dashboard_welcome": "Bon retour",
   "dashboard_subtitle": "Voici ce qui se passe avec vos CV.",
   "dashboard_create_new": "Créer un nouveau CV",
   "dashboard_resumes": "CV",

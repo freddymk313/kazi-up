@@ -84,7 +84,9 @@ const Header = () => {
           </Link>
 
           <Link href="/register">
-            <Button className="rounded-full text-base bg-primary text-primary-foreground hover:bg-primary/90 h-12 px-8 font-semibold transition-all active:scale-95">
+            <Button 
+            className="rounded-full text-base bg-primary text-primary-foreground hover:bg-primary/90 h-12 px-8 font-semibold transition-all active:scale-95"
+            >
               S'inscrire
             </Button>
           </Link>

@@ -167,7 +167,6 @@ const DashboardLayout = ({ children }: Props) => {
             <LanguageSwitcher />
             <Button onClick={() => router.push("/builder")} 
               className="rounded-full text-base bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-8 font-semibold transition-all active:scale-95"
-              
               >
               <Upload className="w-3.5 h-3.5" /> {t("sidebar_new_resume")}
             </Button>
