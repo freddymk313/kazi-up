@@ -63,14 +63,14 @@ export default function Builder() {
 
   const templateOptions: { id: TemplateName; label: string }[] = [
     { id: "modern-minimal", label: "Minimal" },
-    { id: "sidebar-professional", label: "Sidebar" },
+    // { id: "sidebar-professional", label: "Sidebar" },
     { id: "creative-accent", label: "Creative" },
     { id: "simple-accent", label: "Simple" },
     { id: "classic-bordered", label: "Classic" },
     { id: "clean-professional", label: "Clean" },
     { id: "corporate-classic", label: "Corporate" },
     { id: "professional-dark-sidebar", label: "Dark Pro" },
-    { id: "blue-card-professional", label: "Blue Card" },
+    // { id: "blue-card-professional", label: "Blue Card" },
     { id: "minimalist-engineer", label: "Minimalist" },
   ];
 
@@ -213,6 +213,45 @@ export default function Builder() {
           }`}
         >
           <div className="p-4 sm:p-6 lg:p-8 *max-w-[560px] mx-auto pb-20 sm:pb-8">
+            <div className="relative shrink-0">
+            <button
+              onClick={() => setTemplateOpen(!templateOpen)}
+              className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-secondary hover:bg-secondary/80 transition-colors text-xs sm:text-sm font-medium"
+            >
+              {currentLabel}
+              <ChevronDown className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-muted-foreground" />
+            </button>
+
+            {templateOpen && (
+              <>
+                <div
+                  className="fixed inset-0 z-40"
+                  onClick={() => setTemplateOpen(false)}
+                />
+
+                <div className="absolute top-full mt-2 left-1/2 -translate-x-1/2 z-50 bg-card border border-border rounded-xl shadow-elevated p-1.5 min-w-[180px]">
+                  {templateOptions.map((tOpt) => (
+                    <button
+                      key={tOpt.id}
+                      onClick={() => {
+                        setTemplate(tOpt.id);
+                        saveTemplate(tOpt.id);
+                        setTemplateOpen(false);
+                      }}
+                      className={`w-full text-left px-3 py-2 rounded-lg text-sm transition-colors ${
+                        template === tOpt.id
+                          ? "bg-primary/10 text-primary font-medium"
+                          : "text-foreground hover:bg-secondary"
+                      }`}
+                    >
+                      {tOpt.label}
+                    </button>
+                  ))}
+                </div>
+              </>
+            )}
+          </div>
+
             <ResumeForm data={data} onChange={handleChange} />
           </div>
         </div>

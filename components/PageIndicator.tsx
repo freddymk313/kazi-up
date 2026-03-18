@@ -10,11 +10,11 @@ interface Props {
 const PageIndicator = memo(({ currentPage, totalPages, onPageChange }: Props) => {
   return (
     <div className="absolute bottom-5 left-1/2 -translate-x-1/2 z-10">
-      <div className="flex items-center gap-1 bg-card/95 backdrop-blur-sm border border-border rounded-full shadow-elevated px-2 py-1">
+      <div className="flex items-center gap-1 bg-card/95 backdrop-blur-sm rounded-full shadow-2xl px-2 py-1">
         <button
           onClick={() => onPageChange(Math.max(1, currentPage - 1))}
           disabled={currentPage <= 1}
-          className="p-1.5 rounded-full hover:bg-secondary transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+          className="p-1.5 rounded-full hover:bg-accent transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
         >
           <ChevronLeft className="w-4 h-4" />
         </button>
@@ -27,7 +27,7 @@ const PageIndicator = memo(({ currentPage, totalPages, onPageChange }: Props) =>
               className={`w-7 h-7 rounded-full text-xs font-medium transition-all ${
                 page === currentPage
                   ? "bg-primary text-primary-foreground"
-                  : "hover:bg-secondary text-muted-foreground"
+                  : "hover:bg-accent text-muted-foreground"
               }`}
             >
               {page}
@@ -38,7 +38,7 @@ const PageIndicator = memo(({ currentPage, totalPages, onPageChange }: Props) =>
         <button
           onClick={() => onPageChange(Math.min(totalPages, currentPage + 1))}
           disabled={currentPage >= totalPages}
-          className="p-1.5 rounded-full hover:bg-secondary transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+          className="p-1.5 rounded-full hover:bg-accent transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
         >
           <ChevronRight className="w-4 h-4" />
         </button>

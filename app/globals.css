@@ -79,6 +79,7 @@
   --destructive: #fa0909;
 
   --ring: #F97316;
+  --ring: #404040;
 }
 
 @layer base {
