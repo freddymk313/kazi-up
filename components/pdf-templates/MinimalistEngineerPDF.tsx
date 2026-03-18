@@ -42,7 +42,7 @@ const s = StyleSheet.create({
   bulletText: { fontSize: 9.5, color: "#404040", flex: 1, lineHeight: 1.5 },
   listItem: { flexDirection: "row", gap: 5, marginBottom: 2 },
   listDot: { width: 3, height: 3, borderRadius: 1.5, backgroundColor: DARK, marginTop: 4 },
-  listText: { fontSize: 9.5, flex: 1 },
+  listText: { fontSize: 9.5, flex: 1, textTransform: "capitalize" },
   summaryText: { fontSize: 10, color: "#404040", lineHeight: 1.6, textAlign: "justify", marginBottom: 16 },
   sectionGap: { marginBottom: 16 },
 });
