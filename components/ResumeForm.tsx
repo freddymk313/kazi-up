@@ -31,10 +31,10 @@ const Section = ({ title, children, defaultOpen = true }: { title: string; child
   }, [open]);
 
   return (
-    <div className="bg-card rounded-xl border border-border shadow-sm overflow-hidden">
+    <div className="bg-background rounded-xl overflow-hidden">
       <button
         onClick={() => setOpen(!open)}
-        className="w-full flex items-center justify-between px-5 py-4 hover:bg-secondary/40 transition-colors"
+        className="w-full flex items-center justify-between px-5 py-4 hover:bg-accent/30 transition-colors"
       >
         <span className="font-display font-semibold text-sm text-foreground">{title}</span>
         {open ? <ChevronDown className="w-4 h-4 text-muted-foreground" /> : <ChevronRight className="w-4 h-4 text-muted-foreground" />}
@@ -199,7 +199,7 @@ const ResumeForm = ({ data, onChange }: Props) => {
       <Section title={t("form_experience")}>
         <div className="space-y-3">
           {data.experience.map((exp) => (
-            <div key={exp.id} className="p-4 bg-secondary/30 rounded-xl border border-border/50 space-y-3 relative group">
+            <div key={exp.id} className="p-4 bg-accent rounded-xl border border-border/50 space-y-3 relative group">
               <EntryHeader
                 title={getExpTitle(exp)}
                 isOpen={isEntryOpen(exp.id)}
@@ -247,7 +247,7 @@ const ResumeForm = ({ data, onChange }: Props) => {
               )}
             </div>
           ))}
-          <Button variant="outline" size="sm" onClick={addExperience} className="w-full gap-1.5 h-10 rounded-lg border-dashed">
+          <Button variant="outline" size="sm" onClick={addExperience} className="w-full gap-1.5 h-10 rounded-full border-dashed">
             <Plus className="w-4 h-4" /> {t("form_add_experience")}
           </Button>
         </div>
@@ -256,7 +256,7 @@ const ResumeForm = ({ data, onChange }: Props) => {
       <Section title={t("form_education")}>
         <div className="space-y-3">
           {data.education.map((edu) => (
-            <div key={edu.id} className="p-4 bg-secondary/30 rounded-xl border border-border/50 space-y-3 relative group">
+            <div key={edu.id} className="p-4 bg-accent rounded-xl border border-border/50 space-y-3 relative group">
               <EntryHeader
                 title={getEduTitle(edu)}
                 isOpen={isEntryOpen(edu.id)}
@@ -286,7 +286,7 @@ const ResumeForm = ({ data, onChange }: Props) => {
               )}
             </div>
           ))}
-          <Button variant="outline" size="sm" onClick={addEducation} className="w-full gap-1.5 h-10 rounded-lg border-dashed">
+          <Button variant="outline" size="sm" onClick={addEducation} className="w-full gap-1.5 h-10 rounded-full border-dashed">
             <Plus className="w-4 h-4" /> {t("form_add_education")}
           </Button>
         </div>

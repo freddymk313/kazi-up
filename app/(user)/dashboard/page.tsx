@@ -133,7 +133,7 @@ export default function DashboardPage() {
         </div>
 
         {/* --- SECTION STATS --- */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        {/* <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {quickStats.map((stat, i) => (
             <motion.div
               key={stat.label}
@@ -160,11 +160,10 @@ export default function DashboardPage() {
               </div>
             </motion.div>
           ))}
-        </div>
+        </div> */}
 
         {/* --- MAIN CONTENT GRID --- */}
-        <div className="grid lg:grid-cols-3 gap-8">
-          {/* Recent Resumes (2/3 de l'espace) */}
+        {/* <div className="grid lg:grid-cols-3 gap-8">
           <div className="lg:col-span-2 space-y-6">
             <div className="flex items-center justify-between">
               <h2 className="text-xl font-bold flex items-center gap-2 text-slate-900">
@@ -188,7 +187,6 @@ export default function DashboardPage() {
                   className="bg-white rounded-3xl p-5 flex items-center gap-5 cursor-pointer hover:shadow-md hover:shadow-slate-200/50 transition-all group"
                   onClick={() => router.push("/builder")}
                 >
-                  {/* CV Miniature (Stylisée) */}
                   <div className="w-16 h-20 -mt-2 -ml-1 group-hover:bg-primary/5 transition-colors">
                     <Image
                       src="/landing/cv-hero-2.png"
@@ -213,27 +211,6 @@ export default function DashboardPage() {
                     </div>
                   </div>
 
-                  {/* <div className="hidden sm:flex items-center gap-8 px-6">
-                    <div className="text-right">
-                      <p className="text-[10px] font-bold text-slate-400 uppercase">
-                        Score
-                      </p>
-                      <p
-                        className={`text-lg font-black ${resume.score >= 90 ? "text-emerald-500" : "text-primary"}`}
-                      >
-                        {resume.score}%
-                      </p>
-                    </div>
-                    <div className="text-right">
-                      <p className="text-[10px] font-bold text-slate-400 uppercase text-center">
-                        Vues
-                      </p>
-                      <p className="text-lg font-black text-slate-900 text-center">
-                        {resume.views}
-                      </p>
-                    </div>
-                  </div> */}
-
                   <button className="p-3 rounded-2xl bg-slate-50 text-slate-400 hover:bg-primary hover:text-white transition-all">
                     <MoreHorizontal className="w-5 h-5" />
                   </button>
@@ -242,7 +219,6 @@ export default function DashboardPage() {
             </div>
           </div>
 
-          {/* Top Job Matches (1/3 de l'espace) */}
           <div className="space-y-6">
             <div className="flex items-center justify-between">
               <h2 className="text-xl font-bold flex items-center gap-2 text-slate-900">
@@ -284,21 +260,9 @@ export default function DashboardPage() {
                   </div>
                 </motion.div>
               ))}
-
-              {/* <motion.div
-                variants={itemVariants}
-                className="border-2 border-dashed border-slate-200 rounded-3xl p-8 flex flex-col items-center justify-center text-center gap-3 hover:bg-slate-50 transition-colors cursor-pointer"
-              >
-                <div className="w-12 h-12 rounded-full bg-slate-100 flex items-center justify-center">
-                  <Plus className="w-6 h-6 text-slate-400" />
-                </div>
-                <p className="text-sm font-bold text-slate-500">
-                  Ajouter des préférences de job
-                </p>
-              </motion.div> */}
             </div>
           </div>
-        </div>
+        </div> */}
       </motion.div>
     </DashboardLayout>
   );

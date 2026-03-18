@@ -207,7 +207,7 @@ const DashboardLayout = ({ children }: Props) => {
           <div className="flex items-center gap-3">
             <button
               onClick={() => setMobileOpen(true)}
-              className="md:hidden p-2 rounded-lg hover:bg-secondary transition-colors"
+              className="md:hidden py-2 rounded-lg hover:bg-secondary transition-colors"
             >
               <Menu className="w-5 h-5" />
             </button>
@@ -220,17 +220,20 @@ const DashboardLayout = ({ children }: Props) => {
             </div> */}
           </div>
           <div className="flex items-center gap-2">
-            <LanguageSwitcher />
+            <div className="hidden md:block">
+              <LanguageSwitcher />
+            </div>
+
             <Button
-              onClick={() => router.push("/builder")}
-              className="rounded-full text-base bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-8 font-semibold transition-all active:scale-95"
+              onClick={() => router.push("/dashboard/builder")}
+              className="rounded-full text-sm bg-primary text-primary-foreground hover:bg-primary/90 h-9 md:h-10 px-4 md:px-8 font-semibold transition-all active:scale-95"
             >
-              <Upload className="w-3.5 h-3.5" /> {t("sidebar_new_resume")}
+              <Upload className="w-1.5 h-1.5 md:w-3.5 md:h-3.5" /> {t("sidebar_new_resume")}
             </Button>
-            <button className="relative p-2 rounded-full hover:bg-accent transition-colors">
+            {/* <button className="relative p-2 rounded-full hover:bg-accent transition-colors">
               <Bell className="w-4.5 h-4.5 text-muted-foreground" />
               <span className="absolute top-1 right-1.5 w-2.5 h-2.5 rounded-full bg-primary" />
-            </button>
+            </button> */}
             <button className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center text-primary font-display font-bold text-xs">
               AJ
             </button>

@@ -87,7 +87,7 @@ export default function Builder() {
             <Button
               variant="ghost"
               size="icon"
-              onClick={() => router.push("/")}
+              onClick={() => router.push("/dashboard")}
               className="h-8 w-8 shrink-0 hover:bg-accent"
             >
               <ArrowLeft className="w-4 h-4" />
@@ -145,7 +145,7 @@ export default function Builder() {
 
           {/* Right */}
           <div className="flex items-center gap-1 sm:gap-2 shrink-0">
-            <LanguageSwitcher />
+            {/* <LanguageSwitcher /> */}
 
             <Button
               variant="outline"
@@ -159,22 +159,13 @@ export default function Builder() {
               {t("builder_import_cv")}
             </Button>
 
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={() => setImportOpen(true)}
-              className="flex md:hidden h-8 w-8"
-            >
-              <Upload className="w-4 h-4" />
-            </Button>
-
             {/* Mobile Toggle */}
-            <div className="flex sm:hidden items-center gap-0.5 bg-secondary rounded-lg p-0.5">
+            <div className="flex sm:hidden items-center gap-0.5 bg-accent rounded-full p-0.5">
               <button
                 onClick={() => setMobileView("form")}
-                className={`p-1.5 rounded-md transition-all ${
+                className={`p-1.5 rounded-full transition-all ${
                   mobileView === "form"
-                    ? "bg-card shadow-sm"
+                    ? "bg-background"
                     : "text-muted-foreground"
                 }`}
               >
@@ -183,9 +174,9 @@ export default function Builder() {
 
               <button
                 onClick={() => setMobileView("preview")}
-                className={`p-1.5 rounded-md transition-all ${
+                className={`p-1.5 rounded-full transition-all ${
                   mobileView === "preview"
-                    ? "bg-card shadow-sm"
+                    ? "bg-background"
                     : "text-muted-foreground"
                 }`}
               >
@@ -203,14 +194,14 @@ export default function Builder() {
       </header>
 
       {/* Content */}
-      <div className="flex-1 flex flex-col sm:flex-row min-h-0">
+      <div className="flex-1 flex flex-col sm:flex-row bg-accent min-h-0">
         {/* Editor */}
         <div
-          className={`sm:w-[40%] shrink-0 border-r border-border overflow-y-auto ${
+          className={`sm:w-[40%] shrink-0 border-r border-border/20 overflow-y-auto ${
             mobileView === "preview" ? "hidden sm:block" : "flex-1 min-h-0"
           }`}
         >
-          <div className="p-4 sm:p-6 lg:p-8 max-w-[560px] mx-auto pb-20 sm:pb-8">
+          <div className="*p-4 sm:p-6 lg:p-8 *max-w-[560px] *mx-auto pb-20 sm:pb-8">
             <ResumeForm data={data} onChange={handleChange} />
           </div>
         </div>

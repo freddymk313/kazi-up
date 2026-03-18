@@ -60,7 +60,8 @@ const DownloadButton = ({ fileName = "resume.pdf", data, template }: Props) => {
 
   return (
     <Button onClick={handleDownload} disabled={loading} 
-              className="rounded-full text-sm bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-8 font-semibold transition-all active:scale-95"
+              // className="rounded-full text-sm bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-8 font-semibold transition-all active:scale-95"
+              className="rounded-full text-sm bg-primary text-primary-foreground hover:bg-primary/90 h-9 md:h-10 px-4 md:px-8 font-semibold transition-all active:scale-95"
     
     // className="gap-2"
     >

@@ -76,7 +76,7 @@ const TagInput = ({ value, onChange, placeholder = "Type and press Enter" }: Tag
           {value.map((tag, i) => (
             <span
               key={i}
-              className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-secondary text-secondary-foreground text-xs font-medium group/tag"
+              className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-accent text-foreground text-xs font-medium group/tag"
             >
               {editingIndex === i ? (
                 <input

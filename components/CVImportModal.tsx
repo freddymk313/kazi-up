@@ -114,10 +114,10 @@ const CVImportModal = ({ open, onOpenChange, onDataExtracted, hasExistingData }:
           <div className="p-6 space-y-5">
             <DialogHeader>
               <DialogTitle className="flex items-center gap-2 text-lg">
-                <Sparkles className="w-5 h-5 text-primary" />
+                <Upload className="w-5 h-5 text-primary" />
                 {t("import_title")}
               </DialogTitle>
-              <DialogDescription>{t("import_desc")}</DialogDescription>
+              <DialogDescription className='text-center'>{t("import_desc")}</DialogDescription>
             </DialogHeader>
 
             <div
@@ -142,7 +142,7 @@ const CVImportModal = ({ open, onOpenChange, onDataExtracted, hasExistingData }:
               />
               <div className="flex flex-col items-center gap-3">
                 <div className={`w-14 h-14 rounded-2xl flex items-center justify-center transition-colors ${
-                  dragOver ? "bg-primary/10" : "bg-secondary"
+                  dragOver ? "bg-primary/10" : "bg-accent"
                 }`}>
                   <Upload className={`w-6 h-6 ${dragOver ? "text-primary" : "text-muted-foreground"}`} />
                 </div>
@@ -154,7 +154,7 @@ const CVImportModal = ({ open, onOpenChange, onDataExtracted, hasExistingData }:
                 </div>
                 <div className="flex flex-wrap justify-center gap-1.5 mt-1">
                   {["PDF", "DOCX", "JPG", "PNG"].map((tp) => (
-                    <span key={tp} className="px-2 py-0.5 rounded-md bg-secondary text-[10px] font-medium text-muted-foreground">
+                    <span key={tp} className="px-2 py-0.5 rounded-md bg-accent text-[10px] font-medium text-muted-foreground">
                       {tp}
                     </span>
                   ))}
@@ -226,10 +226,10 @@ const CVImportModal = ({ open, onOpenChange, onDataExtracted, hasExistingData }:
             <p className="text-xs text-muted-foreground">{t("import_edit_after")}</p>
 
             <div className="flex gap-2">
-              <Button variant="outline" className="flex-1" onClick={() => handleClose(false)}>
+              <Button variant="outline" className="flex-1 rounded-full" onClick={() => handleClose(false)}>
                 {t("import_cancel")}
               </Button>
-              <Button className="flex-1" onClick={handleConfirm}>
+              <Button className="flex-1 rounded-full" onClick={handleConfirm}>
                 <FileText className="w-4 h-4 mr-1.5" />
                 {t("import_confirm")}
               </Button>
@@ -248,10 +248,10 @@ const CVImportModal = ({ open, onOpenChange, onDataExtracted, hasExistingData }:
             </DialogHeader>
 
             <div className="flex gap-2">
-              <Button variant="outline" className="flex-1" onClick={() => handleClose(false)}>
+              <Button variant="outline" className="flex-1 rounded-full" onClick={() => handleClose(false)}>
                 {t("import_cancel")}
               </Button>
-              <Button className="flex-1" onClick={reset}>
+              <Button className="flex-1 border border-primary rounded-full" onClick={reset}>
                 {t("import_try_again")}
               </Button>
             </div>

@@ -25,6 +25,8 @@
   --color-success: var(--success);
 
   --color-border: var(--border);
+
+  --color-destructive: var(--destructive);
 }
 
 :root {
@@ -46,6 +48,8 @@
   --success: #10B981;
 
   --border: #374151;
+
+  --destructive: #ee3b3b;
 }
 
 .dark {
@@ -67,6 +71,8 @@
   --success: #10B981;
 
   --border: #F1F5F9;
+
+  --destructive: #fa0909;
 }
 
 @layer base {
