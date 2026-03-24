@@ -121,7 +121,7 @@ const Header = () => {
                   {link.label}
                 </a>
               ))}
-              <div className="h-[1px] bg-border/60 w-full" />
+              <div className="h-px bg-border/60 w-full" />
               <div className="flex flex-col gap-4">
                 <Link href="/login">
                   <Button variant="ghost" className="w-full text-base py-6">
