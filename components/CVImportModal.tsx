@@ -5,7 +5,7 @@ import { Upload, FileText, CheckCircle2, AlertCircle, Loader2, X, Sparkles } fro
 import { ResumeData, getFullName } from "@/utils/resumeTypes";
 import { validateFile, extractTextFromFile } from "@/utils/fileExtraction";
 import { supabase } from "@/integrations/supabase/client";
-import { toast } from "@/hooks/use-toast";
+// import { toast } from "@/hooks/use-toast";
 import { useTranslation } from "@/contexts/LanguageContext";
 
 interface Props {
@@ -91,7 +91,7 @@ const CVImportModal = ({ open, onOpenChange, onDataExtracted, hasExistingData }:
   const handleConfirm = () => {
     if (extractedData) {
       onDataExtracted(extractedData);
-      toast({ title: t("import_toast_title"), description: t("import_toast_desc") });
+      // toast({ title: t("import_toast_title"), description: t("import_toast_desc") });
       handleClose(false);
     }
   };
