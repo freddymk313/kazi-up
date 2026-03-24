@@ -6,6 +6,7 @@ import { ResumeData, getFullName } from "@/utils/resumeTypes";
 import { validateFile, extractTextFromFile } from "@/utils/fileExtraction";
 import { supabase } from "@/integrations/supabase/client";
 // import { toast } from "@/hooks/use-toast";
+import { toast } from "sonner";
 import { useTranslation } from "@/contexts/LanguageContext";
 
 interface Props {
