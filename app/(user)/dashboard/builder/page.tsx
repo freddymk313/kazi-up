@@ -24,9 +24,9 @@ import PreviewContainer from "@/components/PreviewContainer";
 // import DownloadButton from "@/components/DownloadButton";
 import CVImportModal from "@/components/CVImportModal";
 
-import dynamic from "next/dynamic";
+import dynamicImport from "next/dynamic";
 
-const DownloadButton = dynamic(
+const DownloadButton = dynamicImport(
   () => import("@/components/DownloadButton"),
   { ssr: false }
 );
