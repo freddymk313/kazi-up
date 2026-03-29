@@ -3,11 +3,16 @@ import { ResumeData, defaultResumeData, TemplateName } from "./resumeTypes";
 const STORAGE_KEY = "resume-builder-data";
 const TEMPLATE_KEY = "resume-builder-template";
 
-// Migrate old data format to new format
+// ✅ Vérifie si on est côté navigateur
+const isBrowser = typeof window !== "undefined";
+
+// ----------------------
+// 🔄 Migration des données
+// ----------------------
 const migrateData = (data: any): ResumeData => {
   const migrated = { ...data };
 
-  // Migrate fullName → firstName + lastName
+  // fullName → firstName + lastName
   if (migrated.personalInfo?.fullName !== undefined) {
     const parts = (migrated.personalInfo.fullName || "").trim().split(" ");
     migrated.personalInfo.firstName = parts[0] || "";
@@ -15,21 +20,34 @@ const migrateData = (data: any): ResumeData => {
     delete migrated.personalInfo.fullName;
   }
 
-  // Migrate string skills/languages/certifications → arrays
+  // string → array
   if (typeof migrated.skills === "string") {
-    migrated.skills = migrated.skills ? migrated.skills.split(",").map((s: string) => s.trim()).filter(Boolean) : [];
+    migrated.skills = migrated.skills
+      ? migrated.skills.split(",").map((s: string) => s.trim()).filter(Boolean)
+      : [];
   }
+
   if (typeof migrated.languages === "string") {
-    migrated.languages = migrated.languages ? migrated.languages.split(",").map((s: string) => s.trim()).filter(Boolean) : [];
+    migrated.languages = migrated.languages
+      ? migrated.languages.split(",").map((s: string) => s.trim()).filter(Boolean)
+      : [];
   }
+
   if (typeof migrated.certifications === "string") {
-    migrated.certifications = migrated.certifications ? migrated.certifications.split(",").map((s: string) => s.trim()).filter(Boolean) : [];
+    migrated.certifications = migrated.certifications
+      ? migrated.certifications.split(",").map((s: string) => s.trim()).filter(Boolean)
+      : [];
   }
 
   return migrated as ResumeData;
 };
 
+// ----------------------
+// 💾 SAVE DATA
+// ----------------------
 export const saveResumeData = (data: ResumeData) => {
+  if (!isBrowser) return;
+
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
   } catch (e) {
@@ -37,20 +55,48 @@ export const saveResumeData = (data: ResumeData) => {
   }
 };
 
+// ----------------------
+// 📥 LOAD DATA
+// ----------------------
 export const loadResumeData = (): ResumeData => {
+  if (!isBrowser) return defaultResumeData;
+
   try {
     const stored = localStorage.getItem(STORAGE_KEY);
     if (stored) return migrateData(JSON.parse(stored));
   } catch (e) {
     console.error("Failed to load resume data", e);
   }
+
   return defaultResumeData;
 };
 
+// ----------------------
+// 🎨 TEMPLATE SAVE
+// ----------------------
 export const saveTemplate = (template: TemplateName) => {
-  localStorage.setItem(TEMPLATE_KEY, template);
+  if (!isBrowser) return;
+
+  try {
+    localStorage.setItem(TEMPLATE_KEY, template);
+  } catch (e) {
+    console.error("Failed to save template", e);
+  }
 };
 
+// ----------------------
+// 🎨 TEMPLATE LOAD
+// ----------------------
 export const loadTemplate = (): TemplateName => {
-  return (localStorage.getItem(TEMPLATE_KEY) as TemplateName) || "modern-minimal";
+  if (!isBrowser) return "modern-minimal";
+
+  try {
+    return (
+      (localStorage.getItem(TEMPLATE_KEY) as TemplateName) ||
+      "modern-minimal"
+    );
+  } catch (e) {
+    console.error("Failed to load template", e);
+    return "modern-minimal";
+  }
 };
