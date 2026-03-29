@@ -1,5 +1,5 @@
-import dynamic from "next/dynamic";
+import BuilderClient from "@/components/BuilderClient";
 
-export default dynamic(() => import("@/components/BuilderClient"), {
-  ssr: false,
-});
+export default function Page() {
+  return <BuilderClient />;
+}
