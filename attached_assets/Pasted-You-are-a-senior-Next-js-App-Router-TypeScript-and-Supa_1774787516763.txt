@@ -1,0 +1,76 @@
+You are a senior Next.js (App Router), TypeScript, and Supabase expert.
+
+My project is currently broken in production and runtime. I want you to fix ALL issues so the app runs correctly on Replit and Vercel.
+
+### CURRENT ERRORS
+
+1. Supabase error:
+"supabaseUrl is required"
+
+This means environment variables are missing or incorrectly loaded.
+
+2. Previous SSR errors (already seen on Vercel):
+- localStorage is not defined (SSR issue)
+- DOMMatrix is not defined (browser-only API used in server)
+- next/dynamic ssr:false used incorrectly in Server Components
+
+### YOUR TASK
+
+Fix the entire project properly with production-grade architecture:
+
+---
+
+### 1. SUPABASE FIX (CRITICAL)
+- Ensure supabaseUrl and supabaseAnonKey are correctly loaded from environment variables
+- Use safe client initialization:
+  - DO NOT crash if env variables are missing
+  - Add proper validation with clear error messages
+- Ensure Supabase client works in both server/client environments correctly
+
+---
+
+### 2. NEXT.JS SSR FIX
+- Remove ALL usage of browser-only APIs in Server Components:
+  - localStorage
+  - window
+  - navigator
+  - DOMMatrix
+
+- Move all browser logic to Client Components using "use client"
+- Fix hydration-safe state handling
+
+---
+
+### 3. APP ROUTER ARCHITECTURE FIX
+- Ensure no usage of `next/dynamic({ ssr: false })` inside Server Components
+- Replace with proper Client Component separation:
+  - page.tsx = server wrapper only
+  - BuilderClient.tsx = full client UI
+
+---
+
+### 4. BUILD STABILITY
+- Ensure project builds successfully:
+  npm run build must pass with zero errors
+- Ensure compatibility with:
+  - Next.js 16
+  - Turbopack
+  - Vercel deployment
+
+---
+
+### 5. ENV FILE
+- If missing, create correct .env.local format:
+  NEXT_PUBLIC_SUPABASE_URL=
+  NEXT_PUBLIC_SUPABASE_ANON_KEY=
+
+---
+
+### FINAL GOAL
+The application must:
+- run without runtime errors
+- build successfully
+- work both in Replit preview and Vercel production
+- have clean separation between server and client code
+
+Do a full audit and fix everything systematically, not partially.

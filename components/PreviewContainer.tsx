@@ -1,3 +1,5 @@
+"use client";
+
 import { useState, useEffect, useRef, useCallback, memo } from "react";
 import { ResumeData, TemplateName } from "@/utils/resumeTypes";
 import ResumePreview from "./ResumePreview";

@@ -1,3 +1,5 @@
+"use client";
+
 import { ResumeData, TemplateName } from "@/utils/resumeTypes";
 import ModernMinimal from "./templates/ModernMinimal";
 import SidebarProfessional from "./templates/SidebarProfessional";
