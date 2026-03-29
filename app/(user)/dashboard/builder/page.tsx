@@ -21,8 +21,15 @@ import {
 
 import ResumeForm from "@/components/ResumeForm";
 import PreviewContainer from "@/components/PreviewContainer";
-import DownloadButton from "@/components/DownloadButton";
+// import DownloadButton from "@/components/DownloadButton";
 import CVImportModal from "@/components/CVImportModal";
+
+import dynamic from "next/dynamic";
+
+const DownloadButton = dynamic(
+  () => import("@/components/DownloadButton"),
+  { ssr: false }
+);
 
 import { Button } from "@/components/ui/button";
 
