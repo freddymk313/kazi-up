@@ -76,8 +76,8 @@ export default function Builder() {
     { id: "simple-accent", label: "Simple", image: "/model-cv/3.png" },
     { id: "classic-bordered", label: "Classic", image: "/model-cv/3.png" },
     { id: "clean-professional", label: "Clean", image: "/model-cv/3.png" },
-    { id: "professional-dark-sidebar", label: "Dark Pro", image: "/model-cv/3.png" },
-    { id: "minimalist-engineer", label: "Engineer", image: "/model-cv/3.png" },
+    { id: "professional-dark-sidebar", label: "Dark Pro", image: "/model-cv/2.png" },
+    { id: "minimalist-engineer", label: "Engineer", image: "/model-cv/1.png" },
   ];
 
   const currentLabel =
