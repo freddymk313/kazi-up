@@ -1,0 +1,251 @@
+Parfait, ça c’est un **problème classique de layout overflow** (très fréquent avec Tailwind + sections landing).
+
+👉 Objectif : faire corriger ça proprement par Replit, pas juste un “overflow hidden” bricolé.
+
+---
+
+# 🔥 PROMPT — FIX HORIZONTAL OVERFLOW ON HOMEPAGE (LANDING PAGE)
+
+---
+
+## ❗ Problem
+
+On the homepage, there is a layout issue where **some elements overflow the viewport width**, causing horizontal scrolling.
+
+This creates a bad user experience and breaks the layout on:
+
+* Desktop
+* Mobile
+
+---
+
+# 🎯 Objective
+
+Fix ALL horizontal overflow issues on the homepage.
+
+The page must:
+
+* Never exceed viewport width
+* Never create horizontal scroll
+* Be fully responsive
+* Maintain clean layout on all screen sizes
+
+---
+
+# 🧠 DEBUGGING TASK
+
+You must:
+
+1. Identify which component is causing overflow:
+
+   * Hero
+   * CVTemplates
+   * Features
+   * Testimonials
+   * Or any child element
+
+2. Inspect for common overflow causes:
+
+   * Fixed widths (`w-[1200px]`, etc.)
+   * Negative margins
+   * Absolute positioned elements
+   * Large images or SVGs
+   * Improper flex/grid usage
+   * Missing `max-w` constraints
+
+---
+
+# ✅ REQUIRED FIXES
+
+---
+
+## 1️⃣ GLOBAL SAFETY FIX (ROOT LEVEL)
+
+Wrap the page with:
+
+```tsx
+<div className="overflow-x-hidden">
+```
+
+But this is NOT enough alone — must fix root causes.
+
+---
+
+## 2️⃣ CONTAINER SYSTEM (MANDATORY)
+
+Every section must use a proper container:
+
+```tsx
+<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+```
+
+Rules:
+
+* No full-width uncontrolled content
+* Always center content
+* Always add horizontal padding
+
+---
+
+## 3️⃣ FIX COMMON TAILWIND ISSUES
+
+### ❌ Remove dangerous widths:
+
+```tsx
+w-screen
+```
+
+👉 Replace with:
+
+```tsx
+w-full
+```
+
+---
+
+### ❌ Fix absolute elements:
+
+If using:
+
+```tsx
+absolute left-[-100px]
+```
+
+👉 This causes overflow.
+
+Fix by:
+
+* keeping elements inside container
+* or using `overflow-hidden` on parent
+
+---
+
+### ❌ Fix large images:
+
+```tsx
+<img className="w-[1200px]" />
+```
+
+👉 Replace with:
+
+```tsx
+w-full max-w-full h-auto
+```
+
+---
+
+## 4️⃣ GRID / FLEX FIX
+
+Ensure grids don’t overflow:
+
+```tsx
+grid-cols-3
+```
+
+👉 Add:
+
+```tsx
+gap-6
+```
+
+AND ensure children don’t exceed width.
+
+---
+
+## 5️⃣ HERO SECTION (COMMON ISSUE)
+
+Hero sections often cause overflow due to:
+
+* big text
+* decorative elements
+* absolute shapes
+
+Fix:
+
+* constrain width
+* wrap text properly
+* prevent text overflow:
+
+```tsx
+break-words
+```
+
+---
+
+## 6️⃣ PREVENT TEXT OVERFLOW
+
+Apply:
+
+```tsx
+break-words
+```
+
+or:
+
+```tsx
+truncate
+```
+
+when necessary.
+
+---
+
+## 7️⃣ DEBUG METHOD (MANDATORY)
+
+Temporarily apply:
+
+```css
+* {
+  outline: 1px solid red;
+}
+```
+
+This helps identify which element is overflowing.
+
+---
+
+# 📱 RESPONSIVE FIX
+
+Ensure:
+
+* No overflow on mobile (especially)
+* Proper padding on small screens
+* No element exceeds `100vw`
+
+---
+
+# 🚫 DO NOT
+
+Do not:
+
+* Only hide overflow without fixing root cause
+* Use random negative margins
+* Use fixed widths without max-width
+* Break layout responsiveness
+
+---
+
+# 🎬 EXPECTED RESULT
+
+After fix:
+
+* No horizontal scroll
+* Clean layout on all devices
+* All sections aligned properly
+* Professional SaaS landing page quality
+
+---
+
+## 🧠 BONUS (IMPORTANT POUR TOI)
+
+👉 90% du temps, le problème vient de :
+
+* `w-screen`
+* `absolute` mal utilisé
+* image trop large
+* ou un `div` sans `max-w`
+
+---
+
+Si tu veux, tu peux m’envoyer ton composant **Hero** 👀
+Je peux te dire exactement **où est le bug précis** en 1 min.

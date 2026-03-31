@@ -28,7 +28,7 @@ const testimonials = [
 
 const Testimonials = () => {
   return (
-    <section id="testimonials" className="py-24 md:py-32 bg-slate-50 flex justify-center overflow-hidden">
+    <section id="testimonials" className="relative py-24 md:py-32 bg-slate-50 flex justify-center overflow-hidden">
       <div className="container max-w-7xl px-6 mx-auto">
         
         {/* Header Section */}
