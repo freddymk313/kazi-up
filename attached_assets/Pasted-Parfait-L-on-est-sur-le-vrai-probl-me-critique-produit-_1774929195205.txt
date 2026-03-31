@@ -1,0 +1,265 @@
+Parfait. Là on est sur **le vrai problème critique produit** :
+👉 ton parsing est mauvais → donc ton SaaS perd toute sa valeur.
+
+Exemple que tu montres :
+
+* Name = `C O N T A C T` ❌
+* Title = `S K I L L S` ❌
+  👉 Ça veut dire que **l’IA lit les headers du CV au lieu des données réelles**
+
+---
+
+# 🎯 OBJECTIF
+
+Tu dois dire à Replit de :
+
+1. 🔥 **Nettoyer le texte avant IA**
+2. 🧠 **Améliorer le prompt**
+3. 🛡️ **Ajouter un fallback intelligent**
+4. 🚫 **Empêcher les erreurs absurdes (CONTACT, SKILLS, etc.)**
+
+---
+
+# 🔥 PROMPT FINAL — FIX CV PARSING + AUTO-FILL (PRODUCTION LEVEL)
+
+---
+
+## ❗ Problem
+
+The CV import system is not extracting correct data.
+
+Example issues:
+
+* Name is detected as "CONTACT"
+* Job title is detected as "SKILLS"
+* Sections headers are incorrectly used as data
+
+This makes the feature unreliable and unusable.
+
+---
+
+# 🎯 Objective
+
+Fix the entire CV parsing pipeline so that:
+
+* Real user data is extracted correctly
+* Section headers are ignored
+* Output is clean and usable
+* Autofill works properly
+
+---
+
+# 🧠 ROOT CAUSE
+
+The AI receives **raw unstructured text** like:
+
+```
+CONTACT
+SKILLS
+EDUCATION
+```
+
+And incorrectly assumes these are actual values.
+
+---
+
+# ✅ REQUIRED FIXES
+
+---
+
+## 1️⃣ PREPROCESS TEXT BEFORE AI (CRITICAL)
+
+Before sending text to AI:
+
+Clean it.
+
+### Remove common CV section headers:
+
+```ts
+const cleanText = rawText
+  .replace(/\b(CONTACT|SKILLS|EDUCATION|EXPERIENCE|PROFILE|SUMMARY|LANGUAGES|CERTIFICATIONS)\b/gi, "")
+```
+
+Also:
+
+* Remove excessive line breaks
+* Normalize spaces
+
+```ts
+.replace(/\n{2,}/g, "\n")
+.replace(/\s{2,}/g, " ")
+```
+
+---
+
+## 2️⃣ IMPROVE AI PROMPT (VERY IMPORTANT)
+
+Replace your system prompt with a stricter one:
+
+---
+
+### 🔥 NEW SYSTEM PROMPT
+
+```txt
+You are a highly accurate resume parser.
+
+You receive raw CV text.
+
+Your job is to extract ONLY real user information.
+
+CRITICAL RULES:
+
+- NEVER use section titles as values (e.g. "CONTACT", "SKILLS", "EDUCATION").
+- If a value looks like a section header, IGNORE it.
+- The full name must be a real person's name, not a section label.
+- The job title must be a real job (e.g. "Software Engineer"), not a section.
+- Extract the email using pattern recognition.
+- Extract phone numbers using pattern recognition.
+- Extract only meaningful data.
+
+VALIDATION RULES:
+
+- fullName must contain at least 2 words
+- jobTitle must not be in ALL CAPS unless it's a real job
+- Reject values like:
+  CONTACT, SKILLS, EDUCATION, EXPERIENCE
+
+If unsure, return empty string.
+
+Return ONLY structured JSON.
+```
+
+---
+
+## 3️⃣ ADD POST-PROCESS VALIDATION (VERY IMPORTANT)
+
+After AI returns data:
+
+Validate it.
+
+```ts
+const invalidValues = ["CONTACT", "SKILLS", "EDUCATION", "EXPERIENCE"]
+
+if (invalidValues.includes(data.personalInfo.firstName?.toUpperCase())) {
+  data.personalInfo.firstName = ""
+}
+
+if (invalidValues.includes(data.personalInfo.jobTitle?.toUpperCase())) {
+  data.personalInfo.jobTitle = ""
+}
+```
+
+---
+
+## 4️⃣ ADD REGEX FALLBACK (SMART SYSTEM)
+
+If AI fails → extract manually:
+
+### Email:
+
+```ts
+const emailMatch = text.match(/[^\s]+@[^\s]+\.[^\s]+/)
+```
+
+### Phone:
+
+```ts
+const phoneMatch = text.match(/(\+?\d[\d\s-]{7,})/)
+```
+
+Inject into result if missing.
+
+---
+
+## 5️⃣ IMPROVE NAME DETECTION
+
+Instead of trusting AI blindly:
+
+Take first valid line:
+
+```ts
+const lines = text.split("\n").filter(l => l.trim().length > 0)
+
+const possibleName = lines.find(line => 
+  line.split(" ").length >= 2 &&
+  line.length < 40 &&
+  !line.toUpperCase().includes("CV")
+)
+```
+
+---
+
+## 6️⃣ DEBUG LOGGING
+
+Add:
+
+```ts
+console.log("RAW TEXT:", rawText)
+console.log("CLEAN TEXT:", cleanText)
+console.log("AI RESULT:", parsedData)
+```
+
+---
+
+## 7️⃣ UI IMPROVEMENT
+
+If AI confidence is low:
+
+Show warning:
+
+```txt
+Some data may be inaccurate. Please review before importing.
+```
+
+---
+
+# 🚫 DO NOT
+
+Do not:
+
+* Trust AI blindly
+* Use raw text without cleaning
+* Accept ALL CAPS words as real data
+* Skip validation
+
+---
+
+# 🎬 EXPECTED RESULT
+
+After fix:
+
+* Name is correct (real person name)
+* Job title is correct
+* Email is always detected
+* No more "CONTACT", "SKILLS", etc.
+* Autofill works reliably
+
+---
+
+# 🧠 TRUTH (IMPORTANT)
+
+👉 90% des gens qui font ça échouent parce qu’ils :
+
+* envoient du texte sale à l’IA ❌
+* ne filtrent pas les résultats ❌
+
+👉 Toi tu fais maintenant :
+
+* preprocessing ✅
+* smart prompt ✅
+* validation ✅
+* fallback ✅
+
+👉 Là tu passes niveau **SaaS sérieux**.
+
+---
+
+## 🔥 Si tu veux aller encore plus loin :
+
+Je peux te donner :
+
+* 🧠 un parser CV ultra précis (niveau Resume.io)
+* ⚙️ extraction sans IA (ultra rapide)
+* 🚀 système de scoring ATS automatique
+
+Tu veux que ton produit devienne vraiment premium ?

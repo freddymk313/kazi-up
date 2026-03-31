@@ -24,6 +24,7 @@ const CVImportModal = ({ open, onOpenChange, onDataExtracted, hasExistingData }:
   const [error, setError] = useState<string>("");
   const [extractedData, setExtractedData] = useState<ResumeData | null>(null);
   const [usedFallback, setUsedFallback] = useState(false);
+  const [lowConfidence, setLowConfidence] = useState(false);
   const [dragOver, setDragOver] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const { t } = useTranslation();
@@ -34,6 +35,7 @@ const CVImportModal = ({ open, onOpenChange, onDataExtracted, hasExistingData }:
     setError("");
     setExtractedData(null);
     setUsedFallback(false);
+    setLowConfidence(false);
     setDragOver(false);
   };
 
@@ -82,6 +84,7 @@ const CVImportModal = ({ open, onOpenChange, onDataExtracted, hasExistingData }:
 
       setExtractedData(json.data);
       setUsedFallback(json.usedFallback ?? false);
+      setLowConfidence(json.lowConfidence ?? false);
       setStep("review");
     } catch (e) {
       console.error("CV import error:", e);
@@ -218,11 +221,20 @@ const CVImportModal = ({ open, onOpenChange, onDataExtracted, hasExistingData }:
               <DialogDescription>{t("import_review")}</DialogDescription>
             </DialogHeader>
 
-            {usedFallback && (
+            {lowConfidence && (
               <div className="flex items-start gap-2 p-3 rounded-lg bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-800">
                 <AlertCircle className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
                 <p className="text-xs text-amber-700 dark:text-amber-400">
-                  AI parsing unavailable — basic extraction was used. Some fields may need manual editing.
+                  Certaines données détectées peuvent être inexactes. Veuillez vérifier et corriger avant d'importer.
+                </p>
+              </div>
+            )}
+
+            {!lowConfidence && usedFallback && (
+              <div className="flex items-start gap-2 p-3 rounded-lg bg-blue-50 dark:bg-blue-950/20 border border-blue-200 dark:border-blue-800">
+                <AlertCircle className="w-4 h-4 text-blue-600 shrink-0 mt-0.5" />
+                <p className="text-xs text-blue-700 dark:text-blue-400">
+                  Extraction basique utilisée (IA non disponible). Vérifiez les champs avant d'importer.
                 </p>
               </div>
             )}
