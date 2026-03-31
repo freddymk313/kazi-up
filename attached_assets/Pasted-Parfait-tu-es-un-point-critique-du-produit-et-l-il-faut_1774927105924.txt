@@ -1,0 +1,314 @@
+Parfait, tu es à un point critique du produit — et là il faut faire **le bon choix d’architecture**.
+
+👉 Ton ancien système :
+
+* Upload fichier → Supabase
+* Prompt stocké → Supabase
+* Traitement → Gemini API
+* Retour → remplissage CV
+
+❌ Problème : trop complexe + dépendances + fragile en prod (env, SSR, latence, coût)
+
+---
+
+# 🎯 ✅ MEILLEURE ALTERNATIVE (SIMPLE + PRODUCTION READY)
+
+## 👉 Architecture recommandée (SaaS-ready pour Vercel)
+
+**Upload local → Parse fichier → Extraction IA → Remplissage form**
+
+Sans Supabase.
+
+---
+
+## 🔥 STACK IDÉALE
+
+### 1. Upload fichier
+
+* Input file classique (PDF / DOCX)
+
+### 2. Parsing local / serveur
+
+* PDF → `pdf-parse`
+* DOCX → `mammoth`
+
+### 3. Extraction intelligente
+
+👉 Utilise **OpenAI (ou API compatible)** directement via route API Next.js
+
+OU (option low-cost) :
+👉 Regex + parsing structuré (fallback)
+
+---
+
+## 🧠 FLOW FINAL
+
+```
+User upload CV
+→ API route (Next.js /api/parse-cv)
+→ Extract text (pdf-parse / mammoth)
+→ Send text to AI (OpenAI)
+→ Return structured JSON
+→ Autofill form
+```
+
+---
+
+# 🔥 PROMPT POUR REPLIT (ULTRA PROPRE)
+
+Tu peux donner ça à Replit 👇
+
+---
+
+## 🧠 PROMPT — IMPLEMENT CV FILE IMPORT + AUTO-FILL (NO SUPABASE)
+
+---
+
+### 🎯 Objective
+
+Implement a **CV file import and auto-fill system** in my Next.js (App Router) application.
+
+The system must:
+
+* Allow users to upload a CV (PDF or DOCX)
+* Extract the text from the file
+* Process the content using AI
+* Return structured resume data
+* Automatically fill the resume form
+
+---
+
+# ❗ CRITICAL REQUIREMENTS
+
+* Remove ALL dependency on Supabase
+* Do NOT store files externally
+* Do NOT use database
+* Process everything via server (API routes)
+* Must work on Vercel
+
+---
+
+# 🧱 IMPLEMENTATION ARCHITECTURE
+
+---
+
+## 1️⃣ FILE UPLOAD (CLIENT)
+
+Create file input:
+
+* Accept:
+
+  * .pdf
+  * .docx
+
+On upload:
+
+* Send file to API route `/api/parse-cv`
+* Use `FormData`
+
+---
+
+## 2️⃣ API ROUTE (SERVER)
+
+Create:
+
+```
+/app/api/parse-cv/route.ts
+```
+
+---
+
+## 3️⃣ FILE PARSING
+
+### PDF
+
+Use:
+
+```
+pdf-parse
+```
+
+### DOCX
+
+Use:
+
+```
+mammoth
+```
+
+---
+
+### Extract raw text from file
+
+Output:
+
+```
+plain text string
+```
+
+---
+
+## 4️⃣ AI PROCESSING
+
+Send extracted text to AI (OpenAI or compatible API).
+
+Prompt must extract structured data.
+
+---
+
+### REQUIRED OUTPUT FORMAT (STRICT JSON)
+
+```json
+{
+  "personalInfo": {
+    "fullName": "",
+    "jobTitle": "",
+    "email": "",
+    "phone": "",
+    "location": "",
+    "linkedin": "",
+    "website": ""
+  },
+  "summary": "",
+  "experience": [
+    {
+      "company": "",
+      "position": "",
+      "startDate": "",
+      "endDate": "",
+      "description": ""
+    }
+  ],
+  "education": [
+    {
+      "school": "",
+      "degree": "",
+      "startDate": "",
+      "endDate": ""
+    }
+  ],
+  "skills": []
+}
+```
+
+---
+
+## 5️⃣ RETURN DATA
+
+Return JSON response to frontend.
+
+---
+
+## 6️⃣ AUTO-FILL FORM
+
+On client:
+
+* Receive structured data
+* Merge into resume state
+* Update UI instantly
+
+---
+
+# ⚙️ ERROR HANDLING
+
+Handle:
+
+* Invalid file
+* Empty text
+* AI failure
+* Parsing failure
+
+Return clear error messages.
+
+---
+
+# 🚀 PERFORMANCE
+
+* Limit file size (max 5MB)
+* Use async processing
+* Show loading state
+
+---
+
+# 🔐 ENV VARIABLES
+
+Add:
+
+```
+OPENAI_API_KEY=
+```
+
+---
+
+# 🧪 TEST CASES
+
+Test with:
+
+* PDF CV
+* DOCX CV
+* Empty file
+* Long CV
+
+---
+
+# 🚫 DO NOT
+
+* Do not use Supabase
+* Do not store files
+* Do not block UI
+* Do not crash on invalid input
+
+---
+
+# 🎬 EXPECTED RESULT
+
+User uploads CV →
+System extracts content →
+AI processes →
+Form auto-filled instantly →
+User edits → downloads PDF
+
+---
+
+# 💡 STRATÉGIE PRO (TRÈS IMPORTANT)
+
+👉 Si tu veux un produit solide :
+
+Ajoute aussi :
+
+### fallback sans IA
+
+* Regex extraction (email, phone)
+* Simple keyword parsing
+
+---
+
+# 🔥 BONUS (OPTION PRO)
+
+Plus tard tu peux ajouter :
+
+* Score ATS
+* Suggestions d’amélioration
+* Auto rewrite (AI)
+
+---
+
+# 🧠 CONCLUSION
+
+👉 Ce système est :
+
+* ✅ Plus simple que Supabase + Gemini
+* ✅ Stable sur Vercel
+* ✅ Rapide
+* ✅ Moins cher
+* ✅ Plus scalable
+
+---
+
+Si tu veux, je peux maintenant te donner :
+
+* 🔥 Le prompt EXACT pour l’IA (très optimisé extraction CV)
+* ⚙️ Le code complet de `/api/parse-cv`
+* 🚀 Une version sans OpenAI (100% local parsing)
+
+Tu veux aller jusqu’au niveau SaaS sérieux ?

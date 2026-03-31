@@ -9,7 +9,7 @@ An AI-powered CV/resume builder built with Next.js 16 (App Router), TypeScript, 
 - **Styling**: Tailwind CSS v4 with `tw-animate-css`
 - **Components**: shadcn/ui, Radix UI, Framer Motion, Lucide React
 - **PDF Generation**: `@react-pdf/renderer`
-- **PDF Parsing**: `pdfjs-dist` (dynamically imported, browser-only)
+- **CV Parsing (server)**: `pdf-parse` (PDF), `mammoth` (DOCX) — server-side only via API route
 - **Auth & DB**: Supabase (`@supabase/supabase-js`)
 - **i18n**: Custom context-based (EN/FR), stored in `locales/`
 

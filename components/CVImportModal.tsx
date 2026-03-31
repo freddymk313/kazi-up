@@ -3,12 +3,8 @@
 import { useState, useCallback, useRef } from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { Upload, FileText, CheckCircle2, AlertCircle, Loader2, X, Sparkles } from "lucide-react";
+import { Upload, FileText, CheckCircle2, AlertCircle, Loader2 } from "lucide-react";
 import { ResumeData, getFullName } from "@/utils/resumeTypes";
-import { validateFile, extractTextFromFile } from "@/utils/fileExtraction";
-import { supabase } from "@/integrations/supabase/client";
-// import { toast } from "@/hooks/use-toast";
-import { toast } from "sonner";
 import { useTranslation } from "@/contexts/LanguageContext";
 
 interface Props {
@@ -18,13 +14,16 @@ interface Props {
   hasExistingData: boolean;
 }
 
-type Step = "upload" | "extracting" | "parsing" | "review" | "error";
+type Step = "upload" | "parsing" | "review" | "error";
+
+const MAX_FILE_SIZE = 5 * 1024 * 1024;
 
 const CVImportModal = ({ open, onOpenChange, onDataExtracted, hasExistingData }: Props) => {
   const [step, setStep] = useState<Step>("upload");
   const [file, setFile] = useState<File | null>(null);
   const [error, setError] = useState<string>("");
   const [extractedData, setExtractedData] = useState<ResumeData | null>(null);
+  const [usedFallback, setUsedFallback] = useState(false);
   const [dragOver, setDragOver] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const { t } = useTranslation();
@@ -34,6 +33,7 @@ const CVImportModal = ({ open, onOpenChange, onDataExtracted, hasExistingData }:
     setFile(null);
     setError("");
     setExtractedData(null);
+    setUsedFallback(false);
     setDragOver(false);
   };
 
@@ -43,34 +43,45 @@ const CVImportModal = ({ open, onOpenChange, onDataExtracted, hasExistingData }:
   };
 
   const processFile = useCallback(async (selectedFile: File) => {
-    const validationError = validateFile(selectedFile);
-    if (validationError) {
-      setError(validationError);
+    const ext = selectedFile.name.split(".").pop()?.toLowerCase();
+    const validExts = ["pdf", "docx", "doc"];
+
+    if (!ext || !validExts.includes(ext)) {
+      setError("Unsupported file type. Please upload a PDF or DOCX file.");
+      setStep("error");
+      return;
+    }
+
+    if (selectedFile.size > MAX_FILE_SIZE) {
+      setError("File exceeds the 5MB size limit.");
       setStep("error");
       return;
     }
 
     setFile(selectedFile);
-    setStep("extracting");
+    setStep("parsing");
 
     try {
-      const text = await extractTextFromFile(selectedFile);
+      const formData = new FormData();
+      formData.append("file", selectedFile);
 
-      if (!text || text.trim().length < 20) {
-        throw new Error("Could not extract enough text from this file. Try a different format.");
-      }
-
-      setStep("parsing");
-
-      const { data: result, error: fnError } = await supabase.functions.invoke("parse-cv", {
-        body: { text },
+      const res = await fetch("/api/parse-cv", {
+        method: "POST",
+        body: formData,
       });
 
-      if (fnError) throw new Error(fnError.message || "Failed to parse CV");
-      if (result?.error) throw new Error(result.error);
-      if (!result?.data) throw new Error("No data returned from parser");
+      const json = await res.json();
 
-      setExtractedData(result.data);
+      if (!res.ok) {
+        throw new Error(json.error || "Failed to parse CV");
+      }
+
+      if (!json.data) {
+        throw new Error("No data returned from parser");
+      }
+
+      setExtractedData(json.data);
+      setUsedFallback(json.usedFallback ?? false);
       setStep("review");
     } catch (e) {
       console.error("CV import error:", e);
@@ -89,12 +100,12 @@ const CVImportModal = ({ open, onOpenChange, onDataExtracted, hasExistingData }:
   const handleFileSelect = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = e.target.files?.[0];
     if (selectedFile) processFile(selectedFile);
+    e.target.value = "";
   }, [processFile]);
 
   const handleConfirm = () => {
     if (extractedData) {
       onDataExtracted(extractedData);
-      // toast({ title: t("import_toast_title"), description: t("import_toast_desc") });
       handleClose(false);
     }
   };
@@ -104,15 +115,18 @@ const CVImportModal = ({ open, onOpenChange, onDataExtracted, hasExistingData }:
     const fullName = getFullName(data.personalInfo);
     if (fullName) items.push(`Name: ${fullName}`);
     if (data.personalInfo.jobTitle) items.push(`Title: ${data.personalInfo.jobTitle}`);
-    if (data.experience.length) items.push(`${data.experience.length} experience(s)`);
-    if (data.education.length) items.push(`${data.education.length} education(s)`);
-    if (data.skills.length) items.push("Skills detected");
+    if (data.personalInfo.email) items.push(`Email: ${data.personalInfo.email}`);
+    if (data.experience.length) items.push(`${data.experience.length} experience entry(ies)`);
+    if (data.education.length) items.push(`${data.education.length} education entry(ies)`);
+    if (data.skills.length) items.push(`${data.skills.length} skill(s) detected`);
+    if (data.languages.length) items.push(`${data.languages.length} language(s) detected`);
     return items;
   };
 
   return (
     <Dialog open={open} onOpenChange={handleClose}>
       <DialogContent className="sm:max-w-[520px] p-0 overflow-hidden">
+
         {step === "upload" && (
           <div className="p-6 space-y-5">
             <DialogHeader>
@@ -120,7 +134,7 @@ const CVImportModal = ({ open, onOpenChange, onDataExtracted, hasExistingData }:
                 <Upload className="w-5 h-5 text-primary" />
                 {t("import_title")}
               </DialogTitle>
-              <DialogDescription className='text-center'>{t("import_desc")}</DialogDescription>
+              <DialogDescription className="text-center">{t("import_desc")}</DialogDescription>
             </DialogHeader>
 
             <div
@@ -130,8 +144,8 @@ const CVImportModal = ({ open, onOpenChange, onDataExtracted, hasExistingData }:
               onClick={() => fileInputRef.current?.click()}
               className={`
                 relative cursor-pointer border-2 border-dashed rounded-xl p-10 text-center transition-all
-                ${dragOver 
-                  ? "border-primary bg-primary/5 scale-[1.01]" 
+                ${dragOver
+                  ? "border-primary bg-primary/5 scale-[1.01]"
                   : "border-border hover:border-primary/50 hover:bg-muted/50"
                 }
               `}
@@ -140,7 +154,7 @@ const CVImportModal = ({ open, onOpenChange, onDataExtracted, hasExistingData }:
                 ref={fileInputRef}
                 type="file"
                 className="hidden"
-                accept=".pdf,.docx,.doc,.jpg,.jpeg,.png,.webp"
+                accept=".pdf,.docx,.doc"
                 onChange={handleFileSelect}
               />
               <div className="flex flex-col items-center gap-3">
@@ -156,7 +170,7 @@ const CVImportModal = ({ open, onOpenChange, onDataExtracted, hasExistingData }:
                   <p className="text-xs text-muted-foreground mt-1">{t("import_browse")}</p>
                 </div>
                 <div className="flex flex-wrap justify-center gap-1.5 mt-1">
-                  {["PDF", "DOCX", "JPG", "PNG"].map((tp) => (
+                  {["PDF", "DOCX"].map((tp) => (
                     <span key={tp} className="px-2 py-0.5 rounded-md bg-accent text-[10px] font-medium text-muted-foreground">
                       {tp}
                     </span>
@@ -175,28 +189,21 @@ const CVImportModal = ({ open, onOpenChange, onDataExtracted, hasExistingData }:
           </div>
         )}
 
-        {(step === "extracting" || step === "parsing") && (
+        {step === "parsing" && (
           <div className="p-6 flex flex-col items-center gap-5 py-12">
-            <div className="relative">
-              <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center">
-                <Loader2 className="w-7 h-7 text-primary animate-spin" />
-              </div>
+            <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center">
+              <Loader2 className="w-7 h-7 text-primary animate-spin" />
             </div>
             <div className="text-center space-y-1.5">
-              <p className="font-semibold text-base">
-                {step === "extracting" ? t("import_extracting") : t("import_analyzing")}
-              </p>
+              <p className="font-semibold text-base">{t("import_analyzing")}</p>
               <p className="text-sm text-muted-foreground">
-                {step === "extracting"
-                  ? `${t("import_reading")} ${file?.name}`
-                  : t("import_detecting")
-                }
+                {t("import_reading")} {file?.name}
               </p>
             </div>
             <div className="flex items-center gap-2">
-              <div className="w-2 h-2 rounded-full bg-primary" />
-              <div className={`w-8 h-0.5 ${step === "parsing" ? "bg-primary" : "bg-border"} transition-colors`} />
-              <div className={`w-2 h-2 rounded-full ${step === "parsing" ? "bg-primary" : "bg-border"} transition-colors`} />
+              <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+              <div className="w-8 h-0.5 bg-primary/40" />
+              <div className="w-2 h-2 rounded-full bg-primary/40 animate-pulse" />
             </div>
           </div>
         )}
@@ -211,6 +218,15 @@ const CVImportModal = ({ open, onOpenChange, onDataExtracted, hasExistingData }:
               <DialogDescription>{t("import_review")}</DialogDescription>
             </DialogHeader>
 
+            {usedFallback && (
+              <div className="flex items-start gap-2 p-3 rounded-lg bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-800">
+                <AlertCircle className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
+                <p className="text-xs text-amber-700 dark:text-amber-400">
+                  AI parsing unavailable — basic extraction was used. Some fields may need manual editing.
+                </p>
+              </div>
+            )}
+
             <div className="space-y-2">
               {getSummaryItems(extractedData).map((item, i) => (
                 <div key={i} className="flex items-center gap-2 p-2.5 rounded-lg bg-secondary/50">
@@ -218,12 +234,6 @@ const CVImportModal = ({ open, onOpenChange, onDataExtracted, hasExistingData }:
                   <span className="text-sm">{item}</span>
                 </div>
               ))}
-              {extractedData.languages && (
-                <div className="flex items-center gap-2 p-2.5 rounded-lg bg-secondary/50">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-green-600 shrink-0" />
-                  <span className="text-sm">Languages detected</span>
-                </div>
-              )}
             </div>
 
             <p className="text-xs text-muted-foreground">{t("import_edit_after")}</p>
@@ -260,6 +270,7 @@ const CVImportModal = ({ open, onOpenChange, onDataExtracted, hasExistingData }:
             </div>
           </div>
         )}
+
       </DialogContent>
     </Dialog>
   );
