@@ -1,0 +1,240 @@
+Parfait, erreur très claire — et classique avec **`pdf-parse` + Next.js (App Router / Turbopack)**.
+
+👉 **`pdfParse is not a function` = mauvais import ou mauvaise exécution côté client**
+
+---
+
+# 🎯 CAUSE DU PROBLÈME
+
+Très probablement :
+
+❌ Tu utilises `pdf-parse` :
+
+* soit **dans un composant React (client)**
+* soit avec un **mauvais import (ESM vs CommonJS)**
+
+👉 `pdf-parse` fonctionne **UNIQUEMENT côté serveur**
+
+---
+
+# 🔥 PROMPT POUR REPLIT — FIX PDF PARSE ERROR
+
+---
+
+## 🧠 PROMPT — FIX "pdfParse is not a function" (Next.js App Router)
+
+---
+
+### ❗ Problem
+
+I am getting this error:
+
+```
+pdfParse is not a function
+```
+
+This happens when processing a PDF file in my Next.js 16 App Router project.
+
+The issue is caused by incorrect usage of `pdf-parse`.
+
+---
+
+# 🎯 Objective
+
+Fix the PDF parsing system so that:
+
+* `pdf-parse` works correctly
+* It runs only on the server (API route)
+* No client-side execution
+* Works with Next.js App Router + Turbopack
+* Compatible with Vercel deployment
+
+---
+
+# ❗ ROOT CAUSE TO FIX
+
+* `pdf-parse` is a Node.js (CommonJS) library
+* It cannot run in the browser
+* It must not be imported in React components
+
+---
+
+# ✅ REQUIRED FIXES
+
+---
+
+## 1️⃣ MOVE PDF PARSING TO SERVER ONLY
+
+Ensure that:
+
+* `pdf-parse` is ONLY used inside:
+
+```ts
+/app/api/parse-cv/route.ts
+```
+
+Do NOT import it in:
+
+* components/
+* hooks/
+* client files
+
+---
+
+## 2️⃣ FIX IMPORT SYNTAX
+
+Use correct import for CommonJS:
+
+```ts
+import pdf from "pdf-parse"
+```
+
+OR if issue persists:
+
+```ts
+const pdf = require("pdf-parse")
+```
+
+---
+
+## 3️⃣ FIX FILE BUFFER HANDLING
+
+Inside API route:
+
+```ts
+const formData = await request.formData()
+const file = formData.get("file") as File
+
+const arrayBuffer = await file.arrayBuffer()
+const buffer = Buffer.from(arrayBuffer)
+
+const data = await pdf(buffer)
+const text = data.text
+```
+
+---
+
+## 4️⃣ CLIENT SIDE FIX
+
+In `CVImportModal.tsx`:
+
+* REMOVE any usage of `pdf-parse`
+* Only send file via fetch
+
+Example:
+
+```ts
+const formData = new FormData()
+formData.append("file", file)
+
+const res = await fetch("/api/parse-cv", {
+  method: "POST",
+  body: formData,
+})
+```
+
+---
+
+## 5️⃣ ADD DEBUG LOGGING
+
+In API route:
+
+```ts
+console.log("Parsing PDF...")
+```
+
+And log errors:
+
+```ts
+catch (error) {
+  console.error("PDF parse error:", error)
+}
+```
+
+---
+
+## 6️⃣ HANDLE ERRORS PROPERLY
+
+Return structured error:
+
+```ts
+return Response.json({
+  error: "Failed to parse PDF"
+}, { status: 500 })
+```
+
+---
+
+## 7️⃣ ENSURE NODE COMPATIBILITY
+
+If needed, force Node runtime:
+
+```ts
+export const runtime = "nodejs"
+```
+
+---
+
+# 🧪 TEST AFTER FIX
+
+Test:
+
+* Upload PDF
+* Check server logs
+* Ensure text is extracted
+* Ensure no client-side crash
+
+---
+
+# 🚫 DO NOT
+
+Do not:
+
+* Import pdf-parse in client components
+* Run parsing in browser
+* Use dynamic import in client
+* Ignore CommonJS compatibility
+
+---
+
+# 🎬 EXPECTED RESULT
+
+After fix:
+
+* No "pdfParse is not a function" error
+* PDF parsing works correctly
+* Text is extracted successfully
+* File upload → parse → autofill works smoothly
+
+---
+
+# 💡 BONUS (IMPORTANT)
+
+If Turbopack still causes issues:
+
+Add fallback:
+
+```ts
+const pdf = (await import("pdf-parse")).default
+```
+
+---
+
+## 🧠 RÉSUMÉ RAPIDE POUR TOI
+
+👉 Ton bug vient de :
+
+* pdf-parse utilisé au mauvais endroit OU mal importé
+
+👉 La règle absolue :
+**pdf-parse = SERVER ONLY**
+
+---
+
+Si tu veux, je peux maintenant te donner :
+
+* ⚙️ Le code complet prêt à coller pour `/api/parse-cv`
+* 🔥 Le prompt IA ultra précis pour extraire un CV proprement
+* 🚀 Une version plus rapide que pdf-parse (meilleure perf)
+
+Tu veux aller jusqu’au niveau production clean ?

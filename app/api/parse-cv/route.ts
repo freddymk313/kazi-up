@@ -1,15 +1,18 @@
 import { NextRequest, NextResponse } from "next/server";
+import { PDFParse } from "pdf-parse";
+import * as mammoth from "mammoth";
+
+export const runtime = "nodejs";
 
 const MAX_FILE_SIZE = 5 * 1024 * 1024;
 
 async function extractTextFromPDF(buffer: Buffer): Promise<string> {
-  const pdfParse = (await import("pdf-parse")).default;
-  const result = await pdfParse(buffer);
+  const parser = new PDFParse({ data: buffer });
+  const result = await parser.getText();
   return result.text;
 }
 
 async function extractTextFromDOCX(buffer: Buffer): Promise<string> {
-  const mammoth = await import("mammoth");
   const result = await mammoth.extractRawText({ buffer });
   return result.value;
 }
@@ -28,8 +31,9 @@ function extractWithRegex(text: string) {
     "JavaScript","TypeScript","Python","React","Node","SQL","Git",
     "Java","C++","CSS","HTML","AWS","Docker","Figma","Excel","Word",
   ];
+  const escapeRegex = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
   const foundSkills = skillKeywords.filter((s) =>
-    new RegExp(`\\b${s}\\b`, "i").test(text)
+    new RegExp(escapeRegex(s), "i").test(text)
   );
 
   const summaryMatch = text.match(/(?:summary|about|profile|objective)[:\s\n]+([^\n]{40,300})/i);

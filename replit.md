@@ -9,7 +9,7 @@ An AI-powered CV/resume builder built with Next.js 16 (App Router), TypeScript, 
 - **Styling**: Tailwind CSS v4 with `tw-animate-css`
 - **Components**: shadcn/ui, Radix UI, Framer Motion, Lucide React
 - **PDF Generation**: `@react-pdf/renderer`
-- **CV Parsing (server)**: `pdf-parse` (PDF), `mammoth` (DOCX) — server-side only via API route
+- **CV Parsing (server)**: `pdf-parse` v2 (`PDFParse` class, `getText()`), `mammoth` (DOCX) — server-side only via `app/api/parse-cv/route.ts`
 - **Auth & DB**: Supabase (`@supabase/supabase-js`)
 - **i18n**: Custom context-based (EN/FR), stored in `locales/`
 
@@ -78,6 +78,11 @@ npm run start  # Production server on port 5000
 - All interactive components have `"use client"` directive
 - `pdfjs-dist` is dynamically imported inside async functions (never at module level) to prevent `DOMMatrix is not defined` SSR crashes
 - `@react-pdf/renderer` and `pdfjs-dist` are in `serverExternalPackages` so they are never bundled by the server renderer
+
+### CV Parsing (pdf-parse v2)
+- `pdf-parse` v2 exports a **class** (`PDFParse`), not a default function — usage is `new PDFParse({ data: buffer }).getText()`
+- The static ESM import `import { PDFParse } from "pdf-parse"` is used; CJS `require()`/`createRequire` does **not** work with this package under Turbopack
+- OpenAI is used (when `OPENAI_API_KEY` is set) to structure the extracted text into `ResumeData`; a regex fallback handles the case where the key is absent
 
 ### Supabase Client
 - Initialized with `||` fallback URLs so the app doesn't crash during SSR when env vars are missing
