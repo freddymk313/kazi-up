@@ -123,7 +123,7 @@ const Hero = () => {
 
           <div className="relative rounded-[2rem] border border-white/40 bg-white/20 p-2 shadow-2xl backdrop-blur-sm">
             <Image
-              src="/landing/1.png"
+              src="/model-cv/1.png"
               alt="Aperçu du CV kaziUp"
               width={800}
               height={500}

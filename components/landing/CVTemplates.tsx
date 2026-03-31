@@ -6,11 +6,11 @@ import Image from "next/image";
 import { useRef } from "react";
 
 const templates = [
-  { id: 1, name: "Le Professionnel", tag: "Populaire", image: "/model/cv-hero-2.png" },
-  { id: 2, name: "L'Exécutif", tag: "Premium", image: "/landing/cv-hero-2.png" },
-  { id: 3, name: "Le Créatif", tag: "Design", image: "/landing/cv-hero-2.png" },
-  { id: 4, name: "Le Minimaliste", tag: "ATS-Friendly", image: "/landing/cv-hero-2.png" },
-  { id: 5, name: "Le Moderne", tag: "Nouveau", image: "/landing/cv-hero-2.png" },
+  { id: 1, name: "Le Professionnel", tag: "Populaire", image: "/model-cv/2.png" },
+  { id: 2, name: "L'Exécutif", tag: "Premium", image: "/model-cv/1.png" },
+  { id: 3, name: "Le Créatif", tag: "Design", image: "/model-cv/3.png" },
+  { id: 4, name: "Le Minimaliste", tag: "ATS-Friendly", image: "/model-cv/3.png" },
+  { id: 5, name: "Le Moderne", tag: "Nouveau", image: "/model-cv/3.png" },
 ];
 
 const CVTemplates = () => {
