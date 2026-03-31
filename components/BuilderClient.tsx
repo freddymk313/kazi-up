@@ -70,17 +70,14 @@ export default function Builder() {
     saveResumeData(newData);
   }, []);
 
-  const templateOptions: { id: TemplateName; label: string }[] = [
-    { id: "modern-minimal", label: "Minimal" },
-    // { id: "sidebar-professional", label: "Sidebar" },
-    { id: "creative-accent", label: "Creative" },
-    { id: "simple-accent", label: "Simple" },
-    { id: "classic-bordered", label: "Classic" },
-    { id: "clean-professional", label: "Clean" },
-    // { id: "corporate-classic", label: "Corporate" },
-    { id: "professional-dark-sidebar", label: "Dark Pro" },
-    // { id: "blue-card-professional", label: "Blue Card" },
-    { id: "minimalist-engineer", label: "Minimalist" },
+  const templateOptions: { id: TemplateName; label: string; image: string }[] = [
+    { id: "modern-minimal", label: "Minimal", image: "/model-cv/1.png" },
+    { id: "creative-accent", label: "Creative", image: "/model-cv/2.png" },
+    { id: "simple-accent", label: "Simple", image: "/model-cv/3.png" },
+    { id: "classic-bordered", label: "Classic", image: "/model-cv/3.png" },
+    { id: "clean-professional", label: "Clean", image: "/model-cv/3.png" },
+    { id: "professional-dark-sidebar", label: "Dark Pro", image: "/model-cv/3.png" },
+    { id: "minimalist-engineer", label: "Engineer", image: "/model-cv/3.png" },
   ];
 
   const currentLabel =
@@ -222,44 +219,61 @@ export default function Builder() {
           }`}
         >
           <div className="p-4 sm:p-6 lg:p-8 *max-w-[560px] mx-auto pb-20 sm:pb-8">
-            <div className="relative shrink-0">
-            <button
-              onClick={() => setTemplateOpen(!templateOpen)}
-              className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-secondary hover:bg-secondary/80 transition-colors text-xs sm:text-sm font-medium"
-            >
-              {currentLabel}
-              <ChevronDown className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-muted-foreground" />
-            </button>
+            
 
-            {templateOpen && (
-              <>
-                <div
-                  className="fixed inset-0 z-40"
-                  onClick={() => setTemplateOpen(false)}
-                />
+            {/* Sélecteur de Template Visuel Horizontal */}
+            <div className="mb-8">
+              <h3 className="text-sm font-semibold text-foreground mb-3 flex items-center gap-2">
+                <FileText className="w-4 h-4 text-primary" />
+                {t("Choisir un modèle")}
+              </h3>
 
-                <div className="absolute top-full mt-2 left-1/2 -translate-x-1/2 z-50 bg-card border border-border rounded-xl shadow-elevated p-1.5 min-w-[180px]">
-                  {templateOptions.map((tOpt) => (
-                    <button
-                      key={tOpt.id}
-                      onClick={() => {
-                        setTemplate(tOpt.id);
-                        saveTemplate(tOpt.id);
-                        setTemplateOpen(false);
-                      }}
-                      className={`w-full text-left px-3 py-2 rounded-lg text-sm transition-colors ${
-                        template === tOpt.id
-                          ? "bg-primary/10 text-primary font-medium"
-                          : "text-foreground hover:bg-secondary"
-                      }`}
-                    >
+              <div className="flex overflow-x-auto gap-4 pb-4 no-scrollbar -mx-2 px-2 snap-x">
+                {templateOptions.map((tOpt) => (
+                  <button
+                    key={tOpt.id}
+                    onClick={() => {
+                      setTemplate(tOpt.id);
+                      saveTemplate(tOpt.id);
+                    }}
+                    className={`relative flex-shrink-0 w-32 group transition-all snap-start ${
+                      template === tOpt.id ? "scale-105" : "opacity-70 hover:opacity-100"
+                    }`}
+                  >
+                    {/* Container Image */}
+                    <div className={`aspect-[1/1.4] rounded-lg overflow-hidden border-2 mb-2 transition-all shadow-sm ${
+                      template === tOpt.id 
+                        ? "border-primary ring-2 ring-primary/20" 
+                        : "border-border group-hover:border-primary/50"
+                    }`}>
+                      <img 
+                        src={tOpt.image} 
+                        alt={tOpt.label}
+                        className="w-full h-full object-cover"
+                      />
+
+                      {/* Overlay de sélection */}
+                      {template === tOpt.id && (
+                        <div className="absolute inset-0 bg-primary/10 flex items-center justify-center">
+                          <div className="bg-primary text-white rounded-full p-1">
+                            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                            </svg>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Label */}
+                    <span className={`text-[10px] uppercase tracking-wider font-bold block text-center ${
+                      template === tOpt.id ? "text-primary" : "text-muted-foreground"
+                    }`}>
                       {tOpt.label}
-                    </button>
-                  ))}
-                </div>
-              </>
-            )}
-          </div>
+                    </span>
+                  </button>
+                ))}
+              </div>
+            </div>
 
             <ResumeForm data={data} onChange={handleChange} />
           </div>
