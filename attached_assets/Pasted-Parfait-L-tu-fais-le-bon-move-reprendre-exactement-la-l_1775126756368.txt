@@ -1,0 +1,341 @@
+Parfait. Là tu fais le bon move :
+👉 **reprendre exactement la logique Lovable (Gemini + tool calling)** mais l’implémenter proprement dans **Next.js (Vercel-ready)**.
+
+On va donner à Replit un **prompt final, clair, robuste, production-grade**.
+
+---
+
+# 🔥 PROMPT FINAL — REBUILD CV IMPORT SYSTEM (GEMINI + TOOL CALLING, NO SUPABASE)
+
+---
+
+## 🎯 Objective
+
+Rebuild the entire CV import + parsing system using:
+
+* **Next.js App Router**
+* **Server API Route**
+* **Gemini (via Lovable Gateway API)**
+* **Tool calling (structured JSON output)**
+
+The system must be:
+
+* Stable
+* Accurate
+* Production-ready
+* Fully compatible with Vercel
+
+---
+
+# ❗ CRITICAL REQUIREMENTS
+
+* Do NOT use Supabase
+* Do NOT use Deno
+* Do NOT use Edge runtime
+* Use **Node.js runtime only**
+* Must work in Next.js App Router (`/app/api/...`)
+* Must replicate EXACT behavior of previous Lovable function
+
+---
+
+# 🧱 ARCHITECTURE
+
+---
+
+## 1️⃣ API ROUTE (SERVER)
+
+Create:
+
+```ts
+/app/api/parse-cv/route.ts
+```
+
+---
+
+## 2️⃣ FORCE NODE RUNTIME
+
+```ts
+export const runtime = "nodejs"
+```
+
+---
+
+## 3️⃣ REQUEST HANDLING
+
+Accept JSON:
+
+```ts
+const { text } = await req.json()
+```
+
+Validate:
+
+* Must exist
+* Must be string
+* Must not be empty
+
+---
+
+## 4️⃣ ENV VARIABLE
+
+Use:
+
+```env
+LOVABLE_API_KEY=
+```
+
+Access with:
+
+```ts
+process.env.LOVABLE_API_KEY
+```
+
+---
+
+## 5️⃣ GEMINI REQUEST (EXACT STRUCTURE)
+
+Use EXACT same structure as before.
+
+---
+
+### 🔥 SYSTEM PROMPT (KEEP + IMPROVE SLIGHTLY)
+
+Use this version (more robust):
+
+```txt
+You are an expert CV/resume parser.
+
+You receive raw text extracted from a CV.
+
+Your job is to extract ONLY real user information and return structured JSON.
+
+CRITICAL RULES:
+
+- NEVER use section titles as values (CONTACT, SKILLS, EDUCATION, EXPERIENCE, PROFILE, SUMMARY)
+- Extract only real personal data
+- The name must be a real person name (not a section)
+- The job title must be a real job (not a section)
+- Extract email and phone using pattern recognition
+- Ignore ALL CAPS section headers
+
+Return ONLY structured data using the tool.
+
+If a field is not found, return empty string or empty array.
+```
+
+---
+
+## 6️⃣ TOOL CALLING (KEEP EXACT)
+
+Keep EXACT tool schema (do not modify structure).
+
+---
+
+## 7️⃣ FETCH IMPLEMENTATION
+
+```ts
+const response = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
+  method: "POST",
+  headers: {
+    Authorization: `Bearer ${process.env.LOVABLE_API_KEY}`,
+    "Content-Type": "application/json",
+  },
+  body: JSON.stringify({
+    model: "google/gemini-3-flash-preview",
+    messages: [
+      { role: "system", content: systemPrompt },
+      { role: "user", content: `Here is the raw CV text:\n\n${cleanText}` },
+    ],
+    tools: [...],
+    tool_choice: {
+      type: "function",
+      function: { name: "extract_resume_data" },
+    },
+  }),
+})
+```
+
+---
+
+## 8️⃣ CLEAN TEXT BEFORE SENDING (VERY IMPORTANT)
+
+Add preprocessing:
+
+```ts
+const cleanText = text
+  .replace(/\b(CONTACT|SKILLS|EDUCATION|EXPERIENCE|PROFILE|SUMMARY|LANGUAGES|CERTIFICATIONS)\b/gi, "")
+  .replace(/\n{2,}/g, "\n")
+  .replace(/\s{2,}/g, " ")
+```
+
+---
+
+## 9️⃣ PARSE RESPONSE SAFELY
+
+```ts
+const result = await response.json()
+
+const toolCall = result?.choices?.[0]?.message?.tool_calls?.[0]
+
+if (!toolCall?.function?.arguments) {
+  throw new Error("AI did not return structured data")
+}
+
+const parsedData = JSON.parse(toolCall.function.arguments)
+```
+
+---
+
+## 🔟 POST-VALIDATION (CRITICAL)
+
+Fix bad values:
+
+```ts
+const invalid = ["CONTACT", "SKILLS", "EDUCATION", "EXPERIENCE"]
+
+if (invalid.includes(parsedData.personalInfo.firstName?.toUpperCase())) {
+  parsedData.personalInfo.firstName = ""
+}
+
+if (invalid.includes(parsedData.personalInfo.jobTitle?.toUpperCase())) {
+  parsedData.personalInfo.jobTitle = ""
+}
+```
+
+---
+
+## 1️⃣1️⃣ FALLBACK EXTRACTION (IMPORTANT)
+
+Always ensure email exists:
+
+```ts
+if (!parsedData.personalInfo.email) {
+  const emailMatch = cleanText.match(/[^\s]+@[^\s]+\.[^\s]+/)
+  if (emailMatch) parsedData.personalInfo.email = emailMatch[0]
+}
+```
+
+---
+
+## 1️⃣2️⃣ RETURN RESPONSE
+
+```ts
+return Response.json({ data: parsedData })
+```
+
+---
+
+# 🧑‍💻 CLIENT SIDE (VERY IMPORTANT)
+
+---
+
+## FIX CVImportModal.tsx
+
+### ❌ REMOVE:
+
+* pdf-parse
+* AI calls directly in frontend
+
+---
+
+## ✅ ONLY DO THIS:
+
+```ts
+const res = await fetch("/api/parse-cv", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+  },
+  body: JSON.stringify({ text }),
+})
+```
+
+---
+
+## HANDLE RESPONSE
+
+```ts
+const json = await res.json()
+
+if (!res.ok) {
+  throw new Error(json.error || "Failed to parse CV")
+}
+
+setResumeData(json.data)
+```
+
+---
+
+# ⚠️ ERROR HANDLING
+
+Handle:
+
+* 429 → rate limit
+* 402 → credits
+* network failure
+* invalid JSON
+
+---
+
+# 🧪 TEST CASES
+
+Test with:
+
+* Clean CV
+* Messy CV
+* PDF text extraction
+* DOCX text extraction
+* Empty file
+* Long CV
+
+---
+
+# 🚫 DO NOT
+
+Do NOT:
+
+* Use Supabase
+* Use Deno
+* Use Edge runtime
+* Call AI from client
+* Skip preprocessing
+* Skip validation
+
+---
+
+# 🎬 EXPECTED RESULT
+
+After implementation:
+
+* File upload works reliably
+* Gemini returns structured data correctly
+* No more "CONTACT" or "SKILLS" as name
+* Autofill works properly
+* System is stable on Vercel
+
+---
+
+# 🧠 REAL TALK (IMPORTANT)
+
+👉 Là tu passes de :
+
+* “feature qui marche parfois” ❌
+  à
+* “feature SaaS fiable” ✅
+
+👉 Et ça, c’est EXACTEMENT ce qui fait la différence entre :
+
+* projet junior ❌
+* produit vendable 💰
+
+---
+
+## 🔥 Si tu veux aller encore plus loin :
+
+Je peux te donner :
+
+* 🧠 un prompt Gemini encore plus puissant (niveau pro SaaS)
+* ⚙️ un système de scoring CV automatique
+* 🚀 auto rewrite du CV avec IA
+
+Tu veux transformer ça en vrai business ?
