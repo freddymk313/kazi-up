@@ -16,7 +16,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${geist.variable} antialiased`}>
+      <body className={`${geist.variable} antialiased`} suppressHydrationWarning>
         <LanguageProvider>
           {children}
           <Toaster />

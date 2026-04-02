@@ -1,0 +1,326 @@
+## Error Type
+Console Error
+
+## Error Message
+A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+https://react.dev/link/hydration-mismatch
+
+  ...
+    <div className="flex-1 fle...">
+      <div className="sm:w-[40%]...">
+        <div className="p-4 sm:p-6...">
+          <div>
+          <ResumeForm data={{...}} onChange={function Builder.useCallback[handleChange]}>
+            <div className="space-y-5">
+              <Section title="Personal I...">
+                <div className="bg-backgro...">
+                  <button>
+                  <div ref={{current:null}} className="transition..." style={{height:"auto"}}>
+                    <div className="px-5 pb-5 ...">
+                      <div className="grid grid-...">
+                        <Field label="First Name">
+                          <div className={"space-y-..."}>
+                            <Label>
+                            <Input value="" onChange={function onChange} placeholder="Sophie">
+                              <Input type={undefined} data-slot="input" className="h-8 w-full..." value="" ...>
+                                <FieldControl ref={null} type={undefined} data-slot="input" className="h-8 w-full..." ...>
+                                  <input
++                                   id="base-ui-_R_gopinebn5rkndlb_"
+-                                   id="base-ui-_R_2336inebn5rkndlb_"
+                                    disabled={false}
+                                    name={undefined}
+                                    ref={function}
+                                    aria-labelledby={undefined}
+                                    autoFocus={false}
+                                    value=""
+                                    onChange={function}
+                                    onFocus={function onFocus}
+                                    onBlur={function onBlur}
+                                    onKeyDown={function onKeyDown}
+                                    type={undefined}
+                                    data-slot="input"
+                                    placeholder="Sophie"
+                                    className="h-8 w-full min-w-0 rounded-lg border border-border bg-transparent px-2...."
+                                  >
+                        <Field label="Last Name">
+                          <div className={"space-y-..."}>
+                            <Label>
+                            <Input value="" onChange={function onChange} placeholder="Martin">
+                              <Input type={undefined} data-slot="input" className="h-8 w-full..." value="" ...>
+                                <FieldControl ref={null} type={undefined} data-slot="input" className="h-8 w-full..." ...>
+                                  <input
++                                   id="base-ui-_R_h8pinebn5rkndlb_"
+-                                   id="base-ui-_R_2536inebn5rkndlb_"
+                                    disabled={false}
+                                    name={undefined}
+                                    ref={function}
+                                    aria-labelledby={undefined}
+                                    autoFocus={false}
+                                    value=""
+                                    onChange={function}
+                                    onFocus={function onFocus}
+                                    onBlur={function onBlur}
+                                    onKeyDown={function onKeyDown}
+                                    type={undefined}
+                                    data-slot="input"
+                                    placeholder="Martin"
+                                    className="h-8 w-full min-w-0 rounded-lg border border-border bg-transparent px-2...."
+                                  >
+                        <Field label="Job Title" fullWidth={true}>
+                          <div className="space-y-1....">
+                            <Label>
+                            <Input value="" onChange={function onChange} placeholder="Product De...">
+                              <Input type={undefined} data-slot="input" className="h-8 w-full..." value="" ...>
+                                <FieldControl ref={null} type={undefined} data-slot="input" className="h-8 w-full..." ...>
+                                  <input
++                                   id="base-ui-_R_hopinebn5rkndlb_"
+-                                   id="base-ui-_R_2736inebn5rkndlb_"
+                                    disabled={false}
+                                    name={undefined}
+                                    ref={function}
+                                    aria-labelledby={undefined}
+                                    autoFocus={false}
+                                    value=""
+                                    onChange={function}
+                                    onFocus={function onFocus}
+                                    onBlur={function onBlur}
+                                    onKeyDown={function onKeyDown}
+                                    type={undefined}
+                                    data-slot="input"
+                                    placeholder="Product Designer"
+                                    className="h-8 w-full min-w-0 rounded-lg border border-border bg-transparent px-2...."
+                                  >
+                        <Field label="Email">
+                          <div className={"space-y-..."}>
+                            <Label>
+                            <Input type="email" value="" onChange={function onChange} placeholder="email@exam...">
+                              <Input type="email" data-slot="input" className="h-8 w-full..." value="" ...>
+                                <FieldControl ref={null} type="email" data-slot="input" className="h-8 w-full..." ...>
+                                  <input
++                                   id="base-ui-_R_i8pinebn5rkndlb_"
+-                                   id="base-ui-_R_2936inebn5rkndlb_"
+                                    disabled={false}
+                                    name={undefined}
+                                    ref={function}
+                                    aria-labelledby={undefined}
+                                    autoFocus={false}
+                                    value=""
+                                    onChange={function}
+                                    onFocus={function onFocus}
+                                    onBlur={function onBlur}
+                                    onKeyDown={function onKeyDown}
+                                    type="email"
+                                    data-slot="input"
+                                    placeholder="email@example.com"
+                                    className="h-8 w-full min-w-0 rounded-lg border border-border bg-transparent px-2...."
+                                  >
+                        <Field label="Phone">
+                          <div className={"space-y-..."}>
+                            <Label>
+                            <Input value="" onChange={function onChange} placeholder="+33 6 12 3...">
+                              <Input type={undefined} data-slot="input" className="h-8 w-full..." value="" ...>
+                                <FieldControl ref={null} type={undefined} data-slot="input" className="h-8 w-full..." ...>
+                                  <input
++                                   id="base-ui-_R_iopinebn5rkndlb_"
+-                                   id="base-ui-_R_2b36inebn5rkndlb_"
+                                    disabled={false}
+                                    name={undefined}
+                                    ref={function}
+                                    aria-labelledby={undefined}
+                                    autoFocus={false}
+                                    value=""
+                                    onChange={function}
+                                    onFocus={function onFocus}
+                                    onBlur={function onBlur}
+                                    onKeyDown={function onKeyDown}
+                                    type={undefined}
+                                    data-slot="input"
+                                    placeholder="+33 6 12 34 56 78"
+                                    className="h-8 w-full min-w-0 rounded-lg border border-border bg-transparent px-2...."
+                                  >
+                        <Field label="Location" fullWidth={true}>
+                          <div className="space-y-1....">
+                            <Label>
+                            <Input value="" onChange={function onChange} placeholder="Paris, France">
+                              <Input type={undefined} data-slot="input" className="h-8 w-full..." value="" ...>
+                                <FieldControl ref={null} type={undefined} data-slot="input" className="h-8 w-full..." ...>
+                                  <input
++                                   id="base-ui-_R_j8pinebn5rkndlb_"
+-                                   id="base-ui-_R_2d36inebn5rkndlb_"
+                                    disabled={false}
+                                    name={undefined}
+                                    ref={function}
+                                    aria-labelledby={undefined}
+                                    autoFocus={false}
+                                    value=""
+                                    onChange={function}
+                                    onFocus={function onFocus}
+                                    onBlur={function onBlur}
+                                    onKeyDown={function onKeyDown}
+                                    type={undefined}
+                                    data-slot="input"
+                                    placeholder="Paris, France"
+                                    className="h-8 w-full min-w-0 rounded-lg border border-border bg-transparent px-2...."
+                                  >
+                        <Field label="Website">
+                          <div className={"space-y-..."}>
+                            <Label>
+                            <Input value="" onChange={function onChange} placeholder="mywebsite.com">
+                              <Input type={undefined} data-slot="input" className="h-8 w-full..." value="" ...>
+                                <FieldControl ref={null} type={undefined} data-slot="input" className="h-8 w-full..." ...>
+                                  <input
++                                   id="base-ui-_R_jopinebn5rkndlb_"
+-                                   id="base-ui-_R_2f36inebn5rkndlb_"
+                                    disabled={false}
+                                    name={undefined}
+                                    ref={function}
+                                    aria-labelledby={undefined}
+                                    autoFocus={false}
+                                    value=""
+                                    onChange={function}
+                                    onFocus={function onFocus}
+                                    onBlur={function onBlur}
+                                    onKeyDown={function onKeyDown}
+                                    type={undefined}
+                                    data-slot="input"
+                                    placeholder="mywebsite.com"
+                                    className="h-8 w-full min-w-0 rounded-lg border border-border bg-transparent px-2...."
+                                  >
+                        <Field label="LinkedIn">
+                          <div className={"space-y-..."}>
+                            <Label>
+                            <Input value="" onChange={function onChange} placeholder="linkedin.c...">
+                              <Input type={undefined} data-slot="input" className="h-8 w-full..." value="" ...>
+                                <FieldControl ref={null} type={undefined} data-slot="input" className="h-8 w-full..." ...>
+                                  <input
++                                   id="base-ui-_R_k8pinebn5rkndlb_"
+-                                   id="base-ui-_R_2h36inebn5rkndlb_"
+                                    disabled={false}
+                                    name={undefined}
+                                    ref={function}
+                                    aria-labelledby={undefined}
+                                    autoFocus={false}
+                                    value=""
+                                    onChange={function}
+                                    onFocus={function onFocus}
+                                    onBlur={function onBlur}
+                                    onKeyDown={function onKeyDown}
+                                    type={undefined}
+                                    data-slot="input"
+                                    placeholder="linkedin.com/in/username"
+                                    className="h-8 w-full min-w-0 rounded-lg border border-border bg-transparent px-2...."
+                                  >
+              <Section>
+              <Section>
+              <Section>
+              ...
+                <div ref={{current:null}} className="transition..." style={{height:"auto"}}>
+                  <div className="px-5 pb-5 ...">
+                    <Field label="Add your s..." fullWidth={true}>
+                      <div className="space-y-1....">
+                        <Label>
+                        <TagInput value={[...]} onChange={function onChange} placeholder="e.g. Figma...">
+                          <div className="space-y-2">
+                            <Input value="" onChange={function onChange} onKeyDown={function handleKeyDown} ...>
+                              <Input type={undefined} data-slot="input" className="h-8 w-full..." value="" ...>
+                                <FieldControl ref={null} type={undefined} data-slot="input" className="h-8 w-full..." ...>
+                                  <input
++                                   id="base-ui-_R_5apinebn5rkndlb_"
+-                                   id="base-ui-_R_lb6inebn5rkndlb_"
+                                    disabled={false}
+                                    name={undefined}
+                                    ref={function}
+                                    aria-labelledby={undefined}
+                                    autoFocus={false}
+                                    value=""
+                                    onChange={function}
+                                    onFocus={function onFocus}
+                                    onBlur={function}
+                                    onKeyDown={function}
+                                    type={undefined}
+                                    data-slot="input"
+                                    placeholder="e.g. Figma, React, TypeScript..."
+                                    className="h-8 w-full min-w-0 rounded-lg border border-border bg-transparent px-2...."
+                                  >
+              ...
+                <div ref={{current:null}} className="transition..." style={{height:"0px"}}>
+                  <div className="px-5 pb-5 ...">
+                    <Field label="Add langua..." fullWidth={true}>
+                      <div className="space-y-1....">
+                        <Label>
+                        <TagInput value={[...]} onChange={function onChange} placeholder="e.g. Frenc...">
+                          <div className="space-y-2">
+                            <Input value="" onChange={function onChange} onKeyDown={function handleKeyDown} ...>
+                              <Input type={undefined} data-slot="input" className="h-8 w-full..." value="" ...>
+                                <FieldControl ref={null} type={undefined} data-slot="input" className="h-8 w-full..." ...>
+                                  <input
++                                   id="base-ui-_R_5b9inebn5rkndlb_"
+-                                   id="base-ui-_R_ld6inebn5rkndlb_"
+                                    disabled={false}
+                                    name={undefined}
+                                    ref={function}
+                                    aria-labelledby={undefined}
+                                    autoFocus={false}
+                                    value=""
+                                    onChange={function}
+                                    onFocus={function onFocus}
+                                    onBlur={function}
+                                    onKeyDown={function}
+                                    type={undefined}
+                                    data-slot="input"
+                                    placeholder="e.g. French (Native), English (Fluent)..."
+                                    className="h-8 w-full min-w-0 rounded-lg border border-border bg-transparent px-2...."
+                                  >
+              ...
+                <div ref={{current:null}} className="transition..." style={{height:"0px"}}>
+                  <div className="px-5 pb-5 ...">
+                    <Field label="Add certif..." fullWidth={true}>
+                      <div className="space-y-1....">
+                        <Label>
+                        <TagInput value={[...]} onChange={function onChange} placeholder="e.g. Googl...">
+                          <div className="space-y-2">
+                            <Input value="" onChange={function onChange} onKeyDown={function handleKeyDown} ...>
+                              <Input type={undefined} data-slot="input" className="h-8 w-full..." value="" ...>
+                                <FieldControl ref={null} type={undefined} data-slot="input" className="h-8 w-full..." ...>
+                                  <input
++                                   id="base-ui-_R_5bpinebn5rkndlb_"
+-                                   id="base-ui-_R_lf6inebn5rkndlb_"
+                                    disabled={false}
+                                    name={undefined}
+                                    ref={function}
+                                    aria-labelledby={undefined}
+                                    autoFocus={false}
+                                    value=""
+                                    onChange={function}
+                                    onFocus={function onFocus}
+                                    onBlur={function}
+                                    onKeyDown={function}
+                                    type={undefined}
+                                    data-slot="input"
+                                    placeholder="e.g. Google UX Design Certificate..."
+                                    className="h-8 w-full min-w-0 rounded-lg border border-border bg-transparent px-2...."
+                                  >
+      ...
+
+
+
+    at input (<anonymous>:null:null)
+    at Page (app/(user)/dashboard/builder/page.tsx:4:10)
+
+## Code Frame
+  2 |
+  3 | export default function Page() {
+> 4 |   return <BuilderClient />;
+    |          ^
+  5 | }
+
+Next.js version: 16.1.6 (Turbopack)
