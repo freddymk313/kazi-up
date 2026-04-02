@@ -67,7 +67,7 @@ const CVImportModal = ({ open, onOpenChange, onDataExtracted, hasExistingData }:
       const formData = new FormData();
       formData.append("file", selectedFile);
 
-      const res = await fetch("/api/parse-cv", {
+      const res = await fetch("/api/parse", {
         method: "POST",
         body: formData,
       });
