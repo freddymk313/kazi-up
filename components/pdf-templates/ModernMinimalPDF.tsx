@@ -10,30 +10,164 @@ const gray500 = "#6b7280";
 const gray400 = "#9ca3af";
 const gray200 = "#e5e7eb";
 
+// const styles = StyleSheet.create({
+//   page: { padding: 44, fontFamily: BODY_FONT, fontSize: 12, color: "#1f2937" },
+//   header: { marginBottom: 30 },
+//   name: { fontSize: 32, fontWeight: 700, color: navy, fontFamily: HEADING_FONT, letterSpacing: -0.5 },
+//   jobTitle: { fontSize: 16, color: gray400, marginTop: 4, fontFamily: HEADING_FONT, fontWeight: 400 },
+//   contactRow: { flexDirection: "row", flexWrap: "wrap", gap: 16, marginTop: 12 },
+//   contactItem: { fontSize: 10, color: gray500, flexDirection: "row", alignItems: "center", gap: 5 },
+//   divider: { height: 1, backgroundColor: gray200, marginBottom: 26 },
+//   sectionTitle: { fontSize: 14, fontFamily: HEADING_FONT, fontWeight: 700, textTransform: "uppercase", letterSpacing: 3, color: gray400, marginBottom: 12 },
+//   sectionBlock: { marginBottom: 26 },
+//   summaryText: { fontSize: 11.5, color: gray700, lineHeight: 1.6 },
+//   expHeader: { flexDirection: "row", justifyContent: "space-between", alignItems: "flex-start" },
+//   expPosition: { fontSize: 14, fontFamily: HEADING_FONT, fontWeight: 700, color: navy },
+//   expCompany: { fontSize: 11, color: gray500, marginTop: 2 },
+//   expDate: { fontSize: 10, color: gray400 },
+//   expItem: { marginBottom: 18 },
+//   bulletRow: { flexDirection: "row", paddingLeft: 8, marginTop: 4 },
+//   bulletDot: { fontSize: 11, color: gray200, marginRight: 6, marginTop: 0 },
+//   bulletText: { fontSize: 11.5, color: gray700, flex: 1, lineHeight: 1.55 },
+//   skillsRow: { flexDirection: "row", flexWrap: "wrap", gap: 6 },
+//   skillBadge: { fontSize: 10, backgroundColor: "#f3f4f6", color: gray500, paddingHorizontal: 12, paddingVertical: 5, borderRadius: 10 },
+//   twoCol: { flexDirection: "row", gap: 28 },
+//   colHalf: { flex: 1 },
+//   smallText: { fontSize: 11, color: gray700, lineHeight: 1.55 },
+// });
+
 const styles = StyleSheet.create({
-  page: { padding: 44, fontFamily: BODY_FONT, fontSize: 12, color: "#1f2937" },
-  header: { marginBottom: 30 },
-  name: { fontSize: 32, fontWeight: 700, color: navy, fontFamily: HEADING_FONT, letterSpacing: -0.5 },
-  jobTitle: { fontSize: 16, color: gray400, marginTop: 4, fontFamily: HEADING_FONT, fontWeight: 400 },
-  contactRow: { flexDirection: "row", flexWrap: "wrap", gap: 16, marginTop: 12 },
-  contactItem: { fontSize: 10, color: gray500, flexDirection: "row", alignItems: "center", gap: 5 },
-  divider: { height: 1, backgroundColor: gray200, marginBottom: 26 },
-  sectionTitle: { fontSize: 14, fontFamily: HEADING_FONT, fontWeight: 700, textTransform: "uppercase", letterSpacing: 3, color: gray400, marginBottom: 12 },
-  sectionBlock: { marginBottom: 26 },
-  summaryText: { fontSize: 11.5, color: gray700, lineHeight: 1.6 },
-  expHeader: { flexDirection: "row", justifyContent: "space-between", alignItems: "flex-start" },
-  expPosition: { fontSize: 14, fontFamily: HEADING_FONT, fontWeight: 700, color: navy },
-  expCompany: { fontSize: 11, color: gray500, marginTop: 2 },
-  expDate: { fontSize: 10, color: gray400 },
-  expItem: { marginBottom: 18 },
-  bulletRow: { flexDirection: "row", paddingLeft: 8, marginTop: 4 },
-  bulletDot: { fontSize: 11, color: gray200, marginRight: 6, marginTop: 0 },
-  bulletText: { fontSize: 11.5, color: gray700, flex: 1, lineHeight: 1.55 },
-  skillsRow: { flexDirection: "row", flexWrap: "wrap", gap: 6 },
-  skillBadge: { fontSize: 10, backgroundColor: "#f3f4f6", color: gray500, paddingHorizontal: 12, paddingVertical: 5, borderRadius: 10 },
-  twoCol: { flexDirection: "row", gap: 28 },
+  page: { padding: 44, fontFamily: BODY_FONT, fontSize: 10, color: "#1f2937" },
+
+  header: { marginBottom: 22 },
+
+  name: { 
+    fontSize: 26, 
+    fontWeight: 700, 
+    color: navy, 
+    fontFamily: HEADING_FONT, 
+    letterSpacing: -0.3 
+  },
+
+  jobTitle: { 
+    fontSize: 12, 
+    color: gray400, 
+    marginTop: 3, 
+    fontFamily: HEADING_FONT, 
+    fontWeight: 400 
+  },
+
+  contactRow: { 
+    flexDirection: "row", 
+    flexWrap: "wrap", 
+    gap: 12, 
+    marginTop: 10 
+  },
+
+  contactItem: { 
+    fontSize: 9, 
+    color: gray500, 
+    flexDirection: "row", 
+    alignItems: "center", 
+    gap: 4 
+  },
+
+  divider: { 
+    height: 1, 
+    backgroundColor: gray200, 
+    marginBottom: 20 
+  },
+
+  sectionTitle: { 
+    fontSize: 12, 
+    fontFamily: HEADING_FONT, 
+    fontWeight: 700, 
+    textTransform: "uppercase", 
+    letterSpacing: 2, 
+    color: gray400, 
+    marginBottom: 10 
+  },
+
+  sectionBlock: { marginBottom: 20 },
+
+  summaryText: { 
+    fontSize: 10, 
+    color: gray700, 
+    lineHeight: 1.5 
+  },
+
+  expHeader: { 
+    flexDirection: "row", 
+    justifyContent: "space-between", 
+    alignItems: "flex-start" 
+  },
+
+  expPosition: { 
+    fontSize: 12, 
+    fontFamily: HEADING_FONT, 
+    fontWeight: 700, 
+    color: navy 
+  },
+
+  expCompany: { 
+    fontSize: 10, 
+    color: gray500, 
+    marginTop: 1 
+  },
+
+  expDate: { 
+    fontSize: 9, 
+    color: gray400 
+  },
+
+  expItem: { marginBottom: 14 },
+
+  bulletRow: { 
+    flexDirection: "row", 
+    paddingLeft: 6, 
+    marginTop: 3 
+  },
+
+  bulletDot: { 
+    fontSize: 9, 
+    color: gray200, 
+    marginRight: 5 
+  },
+
+  bulletText: { 
+    fontSize: 10, 
+    color: gray700, 
+    flex: 1, 
+    lineHeight: 1.5 
+  },
+
+  skillsRow: { 
+    flexDirection: "row", 
+    flexWrap: "wrap", 
+    gap: 5 
+  },
+
+  skillBadge: { 
+    fontSize: 9, 
+    backgroundColor: "#f3f4f6", 
+    color: gray500, 
+    paddingHorizontal: 10, 
+    paddingVertical: 4, 
+    borderRadius: 8 
+  },
+
+  twoCol: { 
+    flexDirection: "row", 
+    gap: 20 
+  },
+
   colHalf: { flex: 1 },
-  smallText: { fontSize: 11, color: gray700, lineHeight: 1.55 },
+
+  smallText: { 
+    fontSize: 9.5, 
+    color: gray700, 
+    lineHeight: 1.5 
+  },
 });
 
 interface Props { data: ResumeData }
