@@ -73,9 +73,8 @@ export default function Builder() {
   const templateOptions: { id: TemplateName; label: string; image: string }[] = [
     { id: "modern-minimal", label: "Minimal", image: "/model-cv/1.png" },
     { id: "creative-accent", label: "Creative", image: "/model-cv/2.png" },
-    { id: "simple-accent", label: "Simple", image: "/model-cv/3.png" },
-    { id: "classic-bordered", label: "Classic", image: "/model-cv/3.png" },
-    { id: "clean-professional", label: "Clean", image: "/model-cv/3.png" },
+    { id: "classic-bordered", label: "Classic", image: "/model-cv/4.png" },
+    { id: "clean-professional", label: "Clean", image: "/model-cv/5.png" },
     { id: "professional-dark-sidebar", label: "Dark Pro", image: "/model-cv/2.png" },
     { id: "minimalist-engineer", label: "Engineer", image: "/model-cv/1.png" },
   ];
